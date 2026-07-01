@@ -4,20 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -59,18 +45,26 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-midnight: var(--midnight);
+  --color-cream: var(--cream);
+  --color-turquoise: var(--turquoise);
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --midnight: #0C316B;
+  --cream: #FCF4E9;
+  --turquoise: #039397;
+  --background: #0C316B;
+  --foreground: #FCF4E9;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: #039397;
+  --primary-foreground: #FCF4E9;
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -79,7 +73,7 @@
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
+  --border: rgba(252, 244, 233, 0.12);
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.704 0.04 256.788);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -138,7 +132,113 @@
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--midnight);
+    color: var(--cream);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: rgba(3, 147, 151, 0.35);
+    color: var(--cream);
+  }
+}
+
+@keyframes yt-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes yt-star {
+  0%, 100% { opacity: 0.35; transform: scale(1) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.25) rotate(15deg); }
+}
+@keyframes yt-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes yt-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes yt-glow {
+  0%, 100% { box-shadow: 0 0 32px -6px rgba(3, 147, 151, 0.35); }
+  50% { box-shadow: 0 0 56px -6px rgba(3, 147, 151, 0.7); }
+}
+@keyframes yt-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@utility animate-ticker { animation: yt-ticker 40s linear infinite; }
+@utility animate-star { animation: yt-star 4s ease-in-out infinite; }
+@utility animate-float-slow { animation: yt-float 6s ease-in-out infinite; }
+@utility animate-fade-up { animation: yt-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility animate-glow { animation: yt-glow 3.5s ease-in-out infinite; }
+@utility animate-spin-slow { animation: yt-spin-slow 24s linear infinite; }
+
+@utility font-display { font-family: var(--font-display); font-style: italic; }
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  background: var(--turquoise);
+  color: var(--midnight);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 10px 30px -10px rgba(3, 147, 151, 0.6);
+  &:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -12px rgba(3, 147, 151, 0.8); }
+  &:active { transform: translateY(0); }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  background: rgba(252, 244, 233, 0.06);
+  color: var(--cream);
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: 1px solid rgba(252, 244, 233, 0.14);
+  transition: background 0.2s ease, border-color 0.2s ease;
+  &:hover { background: rgba(252, 244, 233, 0.1); border-color: rgba(252, 244, 233, 0.28); }
+}
+
+@utility btn-outline-turquoise {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  color: var(--turquoise);
+  border: 1px solid rgba(3, 147, 151, 0.4);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: background 0.2s ease;
+  &:hover { background: rgba(3, 147, 151, 0.08); }
+}
+
+@utility section-pad { padding-block: 6rem; }
+@utility container-x { max-width: 80rem; margin-inline: auto; padding-inline: 1.5rem; }
+
+@utility text-muted { color: rgba(252, 244, 233, 0.6); }
+@utility text-faint { color: rgba(252, 244, 233, 0.4); }
+
+@utility label-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--turquoise);
 }
