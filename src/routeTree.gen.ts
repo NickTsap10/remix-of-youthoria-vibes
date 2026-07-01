@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TeamRouteImport } from './routes/team'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -17,11 +16,6 @@ import { Route as AtlasRouteImport } from './routes/atlas'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
-const TeamRoute = TeamRouteImport.update({
-  id: '/team',
-  path: '/team',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -60,7 +54,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
   '/support': typeof SupportRoute
-  '/team': typeof TeamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +62,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
   '/support': typeof SupportRoute
-  '/team': typeof TeamRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,27 +71,12 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
   '/support': typeof SupportRoute
-  '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/atlas'
-    | '/contact'
-    | '/episodes'
-    | '/support'
-    | '/team'
+  fullPaths: '/' | '/about' | '/atlas' | '/contact' | '/episodes' | '/support'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/atlas'
-    | '/contact'
-    | '/episodes'
-    | '/support'
-    | '/team'
+  to: '/' | '/about' | '/atlas' | '/contact' | '/episodes' | '/support'
   id:
     | '__root__'
     | '/'
@@ -108,7 +85,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/episodes'
     | '/support'
-    | '/team'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,18 +94,10 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EpisodesRoute: typeof EpisodesRoute
   SupportRoute: typeof SupportRoute
-  TeamRoute: typeof TeamRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/team': {
-      id: '/team'
-      path: '/team'
-      fullPath: '/team'
-      preLoaderRoute: typeof TeamRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -182,7 +150,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EpisodesRoute: EpisodesRoute,
   SupportRoute: SupportRoute,
-  TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
