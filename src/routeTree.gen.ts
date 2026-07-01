@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as AtlasRouteImport } from './routes/atlas'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TeamRoute = TeamRouteImport.update({
@@ -29,6 +30,11 @@ const AtlasRoute = AtlasRouteImport.update({
   path: '/atlas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/atlas': typeof AtlasRoute
   '/episodes': typeof EpisodesRoute
   '/team': typeof TeamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/atlas': typeof AtlasRoute
   '/episodes': typeof EpisodesRoute
   '/team': typeof TeamRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/atlas': typeof AtlasRoute
   '/episodes': typeof EpisodesRoute
   '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/atlas' | '/episodes' | '/team'
+  fullPaths: '/' | '/about' | '/atlas' | '/episodes' | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/atlas' | '/episodes' | '/team'
-  id: '__root__' | '/' | '/atlas' | '/episodes' | '/team'
+  to: '/' | '/about' | '/atlas' | '/episodes' | '/team'
+  id: '__root__' | '/' | '/about' | '/atlas' | '/episodes' | '/team'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AtlasRoute: typeof AtlasRoute
   EpisodesRoute: typeof EpisodesRoute
   TeamRoute: typeof TeamRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AtlasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AtlasRoute: AtlasRoute,
   EpisodesRoute: EpisodesRoute,
   TeamRoute: TeamRoute,
