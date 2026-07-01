@@ -1,8 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { GreeceMap } from "@/components/site/GreeceMap";
-import { regions } from "@/data/atlas";
 import { StarField } from "@/components/site/StarField";
 
 export const Route = createFileRoute("/atlas")({
@@ -18,8 +16,7 @@ export const Route = createFileRoute("/atlas")({
 });
 
 function AtlasPage() {
-  const { t, lang } = useI18n();
-  const active = regions.filter((r) => r.episodeId);
+  const { t } = useI18n();
 
   return (
     <div className="pt-32 pb-24">
@@ -38,24 +35,14 @@ function AtlasPage() {
         <div className="rounded-3xl border border-cream/10 bg-cream/[0.02] p-6">
           <GreeceMap />
         </div>
-        <div className="space-y-4">
-          <h2 className="label-eyebrow">{t("atlas.legend.available")}</h2>
-          {active.map((r) => (
-            <Link
-              key={r.id}
-              to="/episodes"
-              hash={r.episodeId}
-              className="flex items-center justify-between gap-4 rounded-2xl border border-cream/10 bg-cream/[0.03] p-5 hover:border-turquoise/40 hover:bg-turquoise/5 transition-colors group"
-            >
-              <div>
-                <div className="font-display text-2xl">{r.name[lang]}</div>
-                {r.description && (
-                  <div className="text-sm text-cream/60 mt-1">{r.description[lang]}</div>
-                )}
-              </div>
-              <ArrowRight className="size-4 text-turquoise transition-transform group-hover:translate-x-1" />
-            </Link>
-          ))}
+        <div className="rounded-3xl border border-turquoise/25 bg-turquoise/5 p-10 text-center">
+          <div className="text-turquoise text-3xl mb-4 animate-star inline-block">✦</div>
+          <h2 className="font-display text-4xl md:text-5xl leading-tight">
+            {t("atlas.soon.title")}
+          </h2>
+          <p className="mt-4 text-cream/70 leading-relaxed">
+            {t("atlas.soon.body")}
+          </p>
         </div>
       </section>
     </div>

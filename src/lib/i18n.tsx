@@ -73,6 +73,11 @@ export const dict = {
   "atlas.legend.available": { el: "Διαθέσιμο Επεισόδιο", en: "Episode Available" },
   "atlas.legend.soon": { el: "Έρχεται Σύντομα", en: "Coming Soon" },
   "atlas.explore": { el: "Εξερεύνησε τον Άτλα", en: "Explore the Atlas" },
+  "atlas.soon.title": { el: "Έρχεται σύντομα", en: "Coming soon" },
+  "atlas.soon.body": {
+    el: "Ο Άτλας του Youthoria χαρτογραφείται. Νέες ιστορίες από κάθε γωνιά της Ελλάδας φτάνουν σύντομα.",
+    en: "The Youthoria Atlas is being mapped. New stories from every corner of Greece are coming soon.",
+  },
 
   "team.eyebrow": { el: "Οι Άνθρωποι", en: "The People" },
   "team.title": { el: "Meet the Youthoria Team", en: "Meet the Youthoria Team" },
