@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
+import { SOCIALS } from "@/lib/socials";
 
 export const Route = createFileRoute("/support")({
   head: () => ({
@@ -33,7 +34,12 @@ function SupportPage() {
           </h1>
           <p className="mt-6 text-lg text-cream/75 leading-relaxed text-pretty">{t("support.body")}</p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <a href="#" className="btn-primary animate-glow">
+            <a
+              href={SOCIALS.donate}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-primary animate-glow"
+            >
               <Heart className="size-4" /> {t("support.donate")}
             </a>
           </div>
@@ -57,9 +63,8 @@ function SupportPage() {
         </div>
 
         <div className="mt-16 rounded-3xl border border-cream/10 p-8 bg-gradient-to-br from-turquoise/10 via-transparent to-transparent">
-          <div className="flex items-end justify-between mb-4">
+          <div className="mb-4">
             <span className="label-eyebrow">2026 Goal</span>
-            <span className="font-display text-2xl">€3,240 / €5,000</span>
           </div>
           <div className="h-2 rounded-full bg-cream/10 overflow-hidden">
             <div className="h-full bg-turquoise animate-glow" style={{ width: "65%" }} />

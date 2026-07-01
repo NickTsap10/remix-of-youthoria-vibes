@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useI18n, type Lang, type DictKey } from "@/lib/i18n";
+import logoAsset from "@/assets/brand/logo.png.asset.json";
 
 const links: { to: string; key: DictKey }[] = [
   { to: "/", key: "nav.home" },
@@ -34,11 +35,12 @@ export function Nav() {
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
-          <span className="text-turquoise text-lg animate-star inline-block">✦</span>
-          <span className="font-display text-2xl leading-none tracking-tight">
-            Youthoria
-          </span>
+        <Link to="/" className="flex items-center gap-2 group" aria-label="Youthoria">
+          <img
+            src={logoAsset.url}
+            alt="Youthoria"
+            className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(3,147,151,0.35)]"
+          />
         </Link>
 
         <div className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-cream/75">

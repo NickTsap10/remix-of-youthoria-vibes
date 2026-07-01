@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { episodes } from "@/data/episodes";
-import { EpisodeCard } from "@/components/site/EpisodeCard";
 import { StarField } from "@/components/site/StarField";
+import { SOCIALS } from "@/lib/socials";
 
 export const Route = createFileRoute("/episodes")({
   head: () => ({
@@ -33,11 +32,30 @@ function EpisodesPage() {
         </div>
       </section>
 
-      <section className="container-x mt-20">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {episodes.map((e, i) => (
-            <EpisodeCard key={e.id} episode={e} index={i} />
-          ))}
+      <section className="container-x mt-16 grid gap-8 lg:grid-cols-2">
+        <div className="rounded-3xl border border-cream/10 bg-cream/[0.02] p-4 overflow-hidden">
+          <iframe
+            title="Youthoria Podcast on Spotify"
+            src={`https://open.spotify.com/embed/show/${SOCIALS.spotifyShowId}?utm_source=generator&theme=0`}
+            width="100%"
+            height="520"
+            frameBorder={0}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            className="rounded-2xl"
+          />
+        </div>
+        <div className="rounded-3xl border border-cream/10 bg-cream/[0.02] p-4 overflow-hidden">
+          <iframe
+            title="Youthoria Podcast — Alternate Show on Spotify"
+            src={`https://open.spotify.com/embed/show/${SOCIALS.spotifyShowAltId}?utm_source=generator&theme=0`}
+            width="100%"
+            height="520"
+            frameBorder={0}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            className="rounded-2xl"
+          />
         </div>
       </section>
     </div>

@@ -73,12 +73,19 @@ export const dict = {
   "atlas.legend.available": { el: "Διαθέσιμο Επεισόδιο", en: "Episode Available" },
   "atlas.legend.soon": { el: "Έρχεται Σύντομα", en: "Coming Soon" },
   "atlas.explore": { el: "Εξερεύνησε τον Άτλα", en: "Explore the Atlas" },
+  "atlas.soon.title": { el: "Έρχεται σύντομα", en: "Coming soon" },
+  "atlas.soon.body": {
+    el: "Ο Άτλας του Youthoria χαρτογραφείται. Νέες ιστορίες από κάθε γωνιά της Ελλάδας φτάνουν σύντομα.",
+    en: "The Youthoria Atlas is being mapped. New stories from every corner of Greece are coming soon.",
+  },
 
   "team.eyebrow": { el: "Οι Άνθρωποι", en: "The People" },
-  "team.title": { el: "Η Συλλογική μας", en: "The Collective" },
+  "team.title": { el: "Meet the Youthoria Team", en: "Meet the Youthoria Team" },
+  "team.homeTitle": { el: "Meet the Youthoria Team", en: "Meet the Youthoria Team" },
 
   "support.eyebrow": { el: "Στήριξε Μας", en: "Support Us" },
-  "support.title": { el: "Τροφοδότησε τη συζήτηση.", en: "Fuel the conversation." },
+  "support.title": { el: "Στήριξε το Youthoria.", en: "Support Youthoria." },
+  "support.bandTitle": { el: "Στήριξε το Youthoria.", en: "Support Youthoria." },
   "support.body": {
     el: "Η στήριξή σου μας κρατά ανεξάρτητους και καθοδηγούμενους από νέους.",
     en: "Your support keeps us independent and youth-led.",
@@ -92,8 +99,8 @@ export const dict = {
   },
   "support.reasons.2.t": { el: "Ποιότητα", en: "Quality" },
   "support.reasons.2.b": {
-    el: "Επενδύουμε σε ήχο, έρευνα και ταξίδια για τον Άτλα.",
-    en: "We invest in audio, research and travel for the Atlas.",
+    el: "Επενδύουμε στον ήχο και τον εξοπλισμό μας.",
+    en: "We invest in our audio and equipment.",
   },
   "support.reasons.3.t": { el: "Κοινότητα", en: "Community" },
   "support.reasons.3.b": {
@@ -120,11 +127,11 @@ export const dict = {
   "popup.donate": { el: "Θέλω να στηρίξω", en: "I want to support" },
   "popup.later": { el: "Ίσως αργότερα", en: "Maybe later" },
 
-  "ticker.1": { el: "Νέο επεισόδιο διαθέσιμο", en: "New episode available" },
-  "ticker.2": { el: "Ακολούθησέ μας στο Spotify", en: "Follow us on Spotify" },
-  "ticker.3": { el: "Νέο Atlas: Σάμος", en: "New Atlas: Samos" },
+  "ticker.1": { el: "Τσέκαρε τα νέα επεισόδια στο Spotify", en: "Check the new episodes on Spotify" },
+  "ticker.2": { el: "Follow us on Instagram & TikTok @youthoria.podcast", en: "Follow us on Instagram & TikTok @youthoria.podcast" },
+  "ticker.3": { el: "Email επικοινωνίας info@youthoria.gr", en: "Contact email info@youthoria.gr" },
   "ticker.4": { el: "Στήριξε το Youthoria", en: "Support Youthoria" },
-  "ticker.5": { el: "Επερχόμενες εκδηλώσεις", en: "Upcoming events" },
+  "ticker.5": { el: "Τσέκαρε τα νέα επεισόδια στο Spotify", en: "Check the new episodes on Spotify" },
 
   "footer.tagline": {
     el: "Ένα ανεξάρτητο podcast από νέους, για νέους στην Ελλάδα.",

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Play, Heart } from "lucide-react";
+import { SOCIALS } from "@/lib/socials";
 import { useI18n, type DictKey } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
 import { EpisodeCard } from "@/components/site/EpisodeCard";
@@ -49,7 +50,7 @@ function Index() {
             {t("hero.subtitle")}
           </p>
           <div className="mt-12 flex flex-wrap justify-center gap-3 animate-fade-up" style={{ animationDelay: "300ms" }}>
-            <a href="https://open.spotify.com/" target="_blank" rel="noreferrer" className="btn-primary">
+            <a href={SOCIALS.spotifyShow} target="_blank" rel="noreferrer" className="btn-primary">
               <Play className="size-4 fill-current" /> {t("hero.cta.spotify")}
             </a>
             <Link to="/episodes" className="btn-ghost">
@@ -166,10 +167,13 @@ function Index() {
                 className="group animate-fade-up"
                 style={{ animationDelay: `${i * 80}ms` }}
               >
-                <div className="aspect-[4/5] rounded-2xl bg-gradient-to-br from-cream/10 via-turquoise/5 to-midnight ring-1 ring-cream/10 mb-4 grid place-items-center transition-transform group-hover:-translate-y-1 group-hover:ring-turquoise/40">
-                  <span className="font-display text-6xl text-cream/30">
-                    {m.name[0]}
-                  </span>
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden ring-1 ring-cream/10 mb-4 transition-transform group-hover:-translate-y-1 group-hover:ring-turquoise/40">
+                  <img
+                    src={m.photo}
+                    alt={m.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
                 </div>
                 <h4 className="font-medium">{m.name}</h4>
                 <p className="text-xs text-turquoise font-semibold uppercase tracking-widest mt-1">
@@ -189,7 +193,7 @@ function Index() {
               {t("support.eyebrow")} ✦
             </div>
             <h3 className="font-display text-4xl md:text-5xl leading-none">
-              {t("support.title")}
+              {t("support.bandTitle")}
             </h3>
             <p className="mt-3 font-medium max-w-[50ch]">{t("support.body")}</p>
           </div>

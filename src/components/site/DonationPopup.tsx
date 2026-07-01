@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import { SOCIALS } from "@/lib/socials";
 
 const KEY = "yt-donation-dismissed";
 
@@ -44,9 +44,15 @@ export function DonationPopup() {
         <h3 className="font-display text-3xl leading-tight mb-3">{t("popup.title")}</h3>
         <p className="text-cream/70 text-sm leading-relaxed mb-6">{t("popup.body")}</p>
         <div className="flex flex-wrap gap-3">
-          <Link to="/support" onClick={dismiss} className="btn-primary">
+          <a
+            href={SOCIALS.donate}
+            target="_blank"
+            rel="noreferrer"
+            onClick={dismiss}
+            className="btn-primary"
+          >
             {t("popup.donate")}
-          </Link>
+          </a>
           <button onClick={dismiss} className="btn-ghost">
             {t("popup.later")}
           </button>

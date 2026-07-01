@@ -1,6 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Youtube, Music2, Mail } from "lucide-react";
+import { Instagram, Music2, Mail } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { SOCIALS } from "@/lib/socials";
+
+function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
+      <path d="M19.6 6.9a5.6 5.6 0 0 1-3.3-1.2 5.5 5.5 0 0 1-2.1-4H11v13.3a2.7 2.7 0 1 1-2.7-2.7c.3 0 .5 0 .8.1V9.2a5.9 5.9 0 1 0 5.1 5.8V9.6a8.3 8.3 0 0 0 5.4 2v-3z" />
+    </svg>
+  );
+}
 
 export function Footer() {
   const { t } = useI18n();
@@ -19,17 +28,15 @@ export function Footer() {
         <div>
           <h5 className="label-eyebrow mb-5">{t("footer.listen")}</h5>
           <ul className="space-y-3 text-sm text-cream/70">
-            <li><a href="#" className="hover:text-turquoise inline-flex items-center gap-2"><Music2 className="size-3.5" /> Spotify</a></li>
-            <li><a href="#" className="hover:text-turquoise">Apple Podcasts</a></li>
-            <li><a href="#" className="hover:text-turquoise inline-flex items-center gap-2"><Youtube className="size-3.5" /> YouTube</a></li>
+            <li><a href={SOCIALS.spotifyShow} target="_blank" rel="noreferrer" className="hover:text-turquoise inline-flex items-center gap-2"><Music2 className="size-3.5" /> Spotify</a></li>
           </ul>
         </div>
         <div>
           <h5 className="label-eyebrow mb-5">{t("footer.connect")}</h5>
           <ul className="space-y-3 text-sm text-cream/70">
-            <li><a href="#" className="hover:text-turquoise inline-flex items-center gap-2"><Instagram className="size-3.5" /> Instagram</a></li>
-            <li><a href="#" className="hover:text-turquoise">TikTok</a></li>
-            <li><a href="mailto:hello@youthoria.gr" className="hover:text-turquoise inline-flex items-center gap-2"><Mail className="size-3.5" /> hello@youthoria.gr</a></li>
+            <li><a href={SOCIALS.instagram} target="_blank" rel="noreferrer" className="hover:text-turquoise inline-flex items-center gap-2"><Instagram className="size-3.5" /> @youthoria.podcast</a></li>
+            <li><a href={SOCIALS.tiktok} target="_blank" rel="noreferrer" className="hover:text-turquoise inline-flex items-center gap-2"><TikTokIcon className="size-3.5" /> @youthoria.podcast</a></li>
+            <li><a href={`mailto:${SOCIALS.email}`} className="hover:text-turquoise inline-flex items-center gap-2"><Mail className="size-3.5" /> {SOCIALS.email}</a></li>
           </ul>
         </div>
         <div>
@@ -44,7 +51,6 @@ export function Footer() {
       </div>
       <div className="container-x mt-16 pt-6 border-t border-cream/5 flex flex-col md:flex-row justify-between gap-3 text-[10px] font-semibold uppercase tracking-widest text-faint">
         <span>© {new Date().getFullYear()} YOUTHORIA PODCAST — {t("footer.rights")}</span>
-        <span>ATHENS · SAMOS · GREECE ✦</span>
       </div>
     </footer>
   );

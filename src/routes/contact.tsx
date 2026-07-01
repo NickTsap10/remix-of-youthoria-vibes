@@ -3,6 +3,15 @@ import { useState, type ReactNode } from "react";
 import { Send, Instagram, Mail } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
+import { SOCIALS } from "@/lib/socials";
+
+function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
+      <path d="M19.6 6.9a5.6 5.6 0 0 1-3.3-1.2 5.5 5.5 0 0 1-2.1-4H11v13.3a2.7 2.7 0 1 1-2.7-2.7c.3 0 .5 0 .8.1V9.2a5.9 5.9 0 1 0 5.1 5.8V9.6a8.3 8.3 0 0 0 5.4 2v-3z" />
+    </svg>
+  );
+}
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -59,18 +68,17 @@ function ContactPage() {
         </form>
 
         <aside className="space-y-6 text-sm">
-          <div className="rounded-3xl border border-cream/10 p-6">
-            <div className="label-eyebrow mb-3">Direct</div>
-            <a href="mailto:hello@youthoria.gr" className="flex items-center gap-3 text-cream hover:text-turquoise">
-              <Mail className="size-4" /> hello@youthoria.gr
+          <div className="rounded-3xl border border-cream/10 p-6 space-y-3">
+            <div className="label-eyebrow mb-1">Direct</div>
+            <a href={`mailto:${SOCIALS.email}`} className="flex items-center gap-3 text-cream hover:text-turquoise">
+              <Mail className="size-4" /> {SOCIALS.email}
             </a>
-            <a href="#" className="mt-3 flex items-center gap-3 text-cream hover:text-turquoise">
-              <Instagram className="size-4" /> @youthoriapodcast
+            <a href={SOCIALS.instagram} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-cream hover:text-turquoise">
+              <Instagram className="size-4" /> @youthoria.podcast
             </a>
-          </div>
-          <div className="rounded-3xl border border-cream/10 p-6">
-            <div className="label-eyebrow mb-3">Studio</div>
-            <p className="text-cream/70">Athens · Samos<br />Greece ✦</p>
+            <a href={SOCIALS.tiktok} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-cream hover:text-turquoise">
+              <TikTokIcon className="size-4" /> @youthoria.podcast
+            </a>
           </div>
         </aside>
       </section>
