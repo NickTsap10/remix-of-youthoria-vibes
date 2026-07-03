@@ -12,4 +12,19 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      proxy: {
+        // Proxy Lovable-hosted assets so `npm run dev` locally can load images
+        // referenced via .asset.json (/__l5e/assets-v1/...). In Lovable's own
+        // preview this route is handled by the platform; locally it 404s
+        // without this proxy.
+        "/__l5e": {
+          target: "https://id-preview--14d1222e-1db0-4912-9fe2-7966c5ee0a20.lovable.app",
+          changeOrigin: true,
+          secure: true,
+        },
+      },
+    },
+  },
 });
