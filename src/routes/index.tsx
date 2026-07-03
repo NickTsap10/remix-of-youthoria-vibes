@@ -1,6 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, Play, Heart } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Play, Heart, Headphones } from "lucide-react";
 import { SOCIALS } from "@/lib/socials";
 import { useI18n, type DictKey } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
@@ -25,48 +24,62 @@ const VALUES: { key: DictKey; symbol: string }[] = [
 function Index() {
   const { t, lang } = useI18n();
   const latest = episodes.slice(0, 3);
+  const featured = latest[0];
 
   return (
     <div className="pt-16">
       {/* HERO */}
-      <section className="relative overflow-hidden min-h-[92vh] flex items-center pt-24 pb-24">
+      <section className="relative overflow-hidden min-h-[96vh] flex items-center pt-28 pb-32">
         <StarField />
         {/* Ambient gradient orbs */}
-        <div className="pointer-events-none absolute -top-24 -left-24 size-[36rem] rounded-full bg-turquoise/10 blur-[120px]" />
-        <div className="pointer-events-none absolute -bottom-32 -right-16 size-[30rem] rounded-full bg-turquoise/[0.06] blur-[120px]" />
+        <div className="pointer-events-none absolute -top-40 -left-40 size-[42rem] rounded-full bg-turquoise/[0.09] blur-[140px]" />
+        <div className="pointer-events-none absolute -bottom-40 -right-24 size-[36rem] rounded-full bg-turquoise/[0.05] blur-[140px]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-midnight" />
 
-        <div className="container-x relative grid lg:grid-cols-[1.15fr_1fr] gap-16 items-center">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/15 bg-cream/[0.03] text-[11px] font-semibold uppercase tracking-[0.28em] text-cream/70 animate-fade-up">
+        <div className="container-x relative grid lg:grid-cols-12 gap-y-16 gap-x-10 items-center">
+          <div className="lg:col-span-7 xl:col-span-7 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cream/15 bg-cream/[0.03] text-[11px] font-semibold uppercase tracking-[0.32em] text-cream/70 animate-fade-up">
               <span className="size-1.5 rounded-full bg-turquoise animate-pulse" />
               {t("hero.subtitle")}
             </div>
 
-            <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-[5.75rem] leading-[0.95] text-balance animate-fade-up" style={{ animationDelay: "80ms" }}>
+            <h1
+              className="mt-8 font-display text-[3.4rem] sm:text-6xl md:text-7xl lg:text-[6rem] xl:text-[6.75rem] leading-[0.92] tracking-[-0.01em] text-balance animate-fade-up"
+              style={{ animationDelay: "80ms" }}
+            >
               {t("hero.title")}
             </h1>
 
-            <div className="mt-10 flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: "220ms" }}>
+            <p
+              className="mt-8 max-w-[52ch] text-lg md:text-xl text-cream/70 leading-relaxed text-pretty animate-fade-up"
+              style={{ animationDelay: "160ms" }}
+            >
+              {lang === "el"
+                ? "Ένα ανεξάρτητο podcast που δίνει τον μικρόφωνο στη νέα γενιά — για την κουλτούρα, τις ιδέες και τα όνειρα της Ελλάδας του σήμερα."
+                : "An independent podcast handing the mic to a new generation — culture, ideas and the dreams shaping Greece today."}
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: "240ms" }}>
               <a href={SOCIALS.spotifyShow} target="_blank" rel="noreferrer" className="btn-primary">
                 <Play className="size-4 fill-current" /> {t("hero.cta.spotify")}
               </a>
               <Link to="/episodes" className="btn-ghost">
                 {t("hero.cta.latest")} <ArrowRight className="size-4" />
               </Link>
-              <Link to="/support" className="btn-outline-turquoise">
-                <Heart className="size-4" /> {t("hero.cta.support")}
-              </Link>
             </div>
 
-            <div className="mt-14 grid grid-cols-3 gap-6 max-w-md animate-fade-up" style={{ animationDelay: "360ms" }}>
+            <div
+              className="mt-16 grid grid-cols-3 gap-8 max-w-lg animate-fade-up"
+              style={{ animationDelay: "360ms" }}
+            >
               {[
                 { n: `${episodes.length}+`, l: t("episodes.eyebrow") },
                 { n: `${team.length}`, l: t("team.eyebrow") },
                 { n: "∞", l: t("about.eyebrow") },
               ].map((s) => (
                 <div key={s.l} className="border-l border-cream/10 pl-4">
-                  <div className="font-display text-3xl text-turquoise leading-none">{s.n}</div>
-                  <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-cream/50">
+                  <div className="font-display text-4xl text-turquoise leading-none">{s.n}</div>
+                  <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-cream/50">
                     {s.l}
                   </div>
                 </div>
@@ -74,34 +87,42 @@ function Index() {
             </div>
           </div>
 
-          {/* Latest episode showcase card */}
-          <div className="relative hidden lg:block animate-fade-up" style={{ animationDelay: "300ms" }}>
-            <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-turquoise/20 via-transparent to-transparent blur-2xl" />
-            <div className="relative rounded-[2rem] border border-cream/10 bg-cream/[0.03] backdrop-blur-sm p-6 overflow-hidden">
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-turquoise">
-                  ✦ {t("episodes.eyebrow")}
+          {/* Featured episode showcase */}
+          <div
+            className="lg:col-span-5 xl:col-span-5 relative hidden lg:block animate-fade-up"
+            style={{ animationDelay: "320ms" }}
+          >
+            <div className="absolute -inset-10 rounded-[2.5rem] bg-gradient-to-br from-turquoise/25 via-turquoise/[0.06] to-transparent blur-3xl" />
+            <div className="relative rounded-[2rem] border border-cream/10 bg-cream/[0.025] backdrop-blur-md p-5 overflow-hidden">
+              <div className="flex items-center justify-between mb-5 px-2">
+                <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-turquoise">
+                  <Headphones className="size-3.5" /> {t("episodes.eyebrow")}
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-cream/40">
-                  Ep · {latest[0]?.id ?? "—"}
+                  Ep · {String(featured?.number ?? 0).padStart(3, "0")}
                 </span>
               </div>
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-cream/10 relative bg-midnight/60 grid place-items-center p-6 text-center">
-                <div>
-                  <div className="text-turquoise text-3xl mb-3">✦</div>
-                  <h3 className="font-display text-2xl md:text-3xl leading-tight text-balance">
-                    {latest[0]?.title?.[lang]}
-                  </h3>
-                  <p className="mt-3 text-xs uppercase tracking-widest text-cream/50">
-                    {latest[0]?.category?.[lang]} · {latest[0]?.duration}′
-                  </p>
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden relative bg-gradient-to-br from-turquoise/30 via-midnight to-midnight ring-1 ring-cream/10">
+                <div className="absolute inset-0 grid place-items-center p-8 text-center">
+                  <div>
+                    <div className="text-turquoise/80 text-5xl mb-4 animate-star inline-block">✦</div>
+                    <div className="text-[10px] uppercase tracking-[0.35em] text-cream/50 mb-4">
+                      {featured?.category[lang]}
+                    </div>
+                    <h3 className="font-display text-3xl md:text-4xl leading-[1.02] text-balance">
+                      {featured?.title[lang]}
+                    </h3>
+                    <p className="mt-4 text-xs uppercase tracking-[0.3em] text-cream/40">
+                      {featured?.duration} {t("episodes.min")}
+                    </p>
+                  </div>
                 </div>
               </div>
               <a
                 href={SOCIALS.spotifyShow}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 flex items-center justify-between rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+                className="mt-4 flex items-center justify-between rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest transition-transform hover:-translate-y-0.5"
               >
                 <span className="inline-flex items-center gap-2">
                   <Play className="size-4 fill-current" /> {t("hero.cta.spotify")}
@@ -113,7 +134,7 @@ function Index() {
         </div>
 
         {/* Scroll hint */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-cream/40 text-[10px] font-bold uppercase tracking-[0.4em]">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/40 text-[10px] font-bold uppercase tracking-[0.5em]">
           ✦ scroll
         </div>
       </section>
@@ -241,13 +262,13 @@ function Index() {
       </section>
 
       {/* SUPPORT BAND */}
-      <section className="py-16 bg-turquoise text-midnight border-t border-turquoise/40">
+      <section className="py-20 bg-turquoise text-midnight border-t border-turquoise/40">
         <div className="container-x flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="text-center md:text-left">
             <div className="text-xs font-bold uppercase tracking-[0.28em] mb-3 opacity-70">
               {t("support.eyebrow")} ✦
             </div>
-            <h3 className="font-display text-4xl md:text-5xl leading-none">
+            <h3 className="font-display text-4xl md:text-5xl leading-[1.05]">
               {t("support.bandTitle")}
             </h3>
             <p className="mt-3 font-medium max-w-[50ch]">{t("support.body")}</p>

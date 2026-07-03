@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useI18n, type Lang, type DictKey } from "@/lib/i18n";
-import logoAsset from "@/assets/brand/logo.png.asset.json";
+import logoAsset from "@/assets/brand/youthoria-script.png.asset.json";
 
 const links: { to: string; key: DictKey }[] = [
   { to: "/", key: "nav.home" },
@@ -18,6 +18,18 @@ export function Nav() {
   const { lang, setLang, t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const goHome = (e: React.MouseEvent) => {
+    if (router.state.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Ensure fresh navigation lands at top too
+      window.scrollTo({ top: 0 });
+    }
+    setOpen(false);
+  };
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 16);
@@ -35,19 +47,20 @@ export function Nav() {
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group" aria-label="Youthoria">
+        <Link to="/" onClick={goHome} className="flex items-center gap-2 group" aria-label="Youthoria">
           <img
             src={logoAsset.url}
             alt="Youthoria"
-            className="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(3,147,151,0.35)]"
+            className="h-11 md:h-14 w-auto object-contain drop-shadow-[0_0_18px_rgba(3,147,151,0.35)]"
           />
         </Link>
 
         <div className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-cream/75">
-          {links.slice(1).map((l) => (
+          {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
+              onClick={l.to === "/" ? goHome : undefined}
               className="relative transition-colors hover:text-turquoise"
               activeProps={{ className: "text-turquoise" }}
               activeOptions={{ exact: l.to === "/" }}
@@ -76,7 +89,10 @@ export function Nav() {
               <Link
                 key={l.to}
                 to={l.to}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  if (l.to === "/") goHome(e);
+                  setOpen(false);
+                }}
                 className="py-3 text-cream/80 hover:text-turquoise text-sm font-medium border-b border-cream/5 last:border-0"
               >
                 {t(l.key)}
