@@ -86,17 +86,15 @@ function Index() {
                   Ep · {latest[0]?.id ?? "—"}
                 </span>
               </div>
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-cream/10 relative">
-                <img
-                  src={latest[0]?.cover}
-                  alt={latest[0]?.title ?? "Latest episode"}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h3 className="font-display text-2xl leading-tight text-balance">
-                    {latest[0]?.title}
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-cream/10 relative bg-midnight/60 grid place-items-center p-6 text-center">
+                <div>
+                  <div className="text-turquoise text-3xl mb-3">✦</div>
+                  <h3 className="font-display text-2xl md:text-3xl leading-tight text-balance">
+                    {latest[0]?.title?.[lang]}
                   </h3>
+                  <p className="mt-3 text-xs uppercase tracking-widest text-cream/50">
+                    {latest[0]?.category?.[lang]} · {latest[0]?.duration}′
+                  </p>
                 </div>
               </div>
               <a
