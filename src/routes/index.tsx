@@ -29,37 +29,94 @@ function Index() {
   return (
     <div className="pt-16">
       {/* HERO */}
-      <section className="relative overflow-hidden pt-16 pb-28">
+      <section className="relative overflow-hidden min-h-[92vh] flex items-center pt-24 pb-24">
         <StarField />
-        <div className="container-x relative flex flex-col items-center text-center">
-          <div className="mb-10 relative animate-float-slow">
-            <div className="size-28 rounded-full bg-turquoise/10 ring-1 ring-turquoise/25 grid place-items-center animate-glow">
-              <div className="size-16 rounded-full bg-turquoise grid place-items-center text-midnight text-3xl font-display">
-                Y
-              </div>
+        {/* Ambient gradient orbs */}
+        <div className="pointer-events-none absolute -top-24 -left-24 size-[36rem] rounded-full bg-turquoise/10 blur-[120px]" />
+        <div className="pointer-events-none absolute -bottom-32 -right-16 size-[30rem] rounded-full bg-turquoise/[0.06] blur-[120px]" />
+
+        <div className="container-x relative grid lg:grid-cols-[1.15fr_1fr] gap-16 items-center">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/15 bg-cream/[0.03] text-[11px] font-semibold uppercase tracking-[0.28em] text-cream/70 animate-fade-up">
+              <span className="size-1.5 rounded-full bg-turquoise animate-pulse" />
+              {t("hero.subtitle")}
             </div>
-            <span className="absolute -top-2 -right-4 text-turquoise text-xl animate-star">✦</span>
-            <span className="absolute -bottom-2 -left-6 text-cream/50 text-sm animate-star" style={{ animationDelay: "1s" }}>
-              ✦
-            </span>
+
+            <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-[5.75rem] leading-[0.95] text-balance animate-fade-up" style={{ animationDelay: "80ms" }}>
+              {t("hero.title")}
+            </h1>
+
+            <div className="mt-10 flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: "220ms" }}>
+              <a href={SOCIALS.spotifyShow} target="_blank" rel="noreferrer" className="btn-primary">
+                <Play className="size-4 fill-current" /> {t("hero.cta.spotify")}
+              </a>
+              <Link to="/episodes" className="btn-ghost">
+                {t("hero.cta.latest")} <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/support" className="btn-outline-turquoise">
+                <Heart className="size-4" /> {t("hero.cta.support")}
+              </Link>
+            </div>
+
+            <div className="mt-14 grid grid-cols-3 gap-6 max-w-md animate-fade-up" style={{ animationDelay: "360ms" }}>
+              {[
+                { n: `${episodes.length}+`, l: t("episodes.eyebrow") },
+                { n: `${team.length}`, l: t("team.eyebrow") },
+                { n: "∞", l: t("about.eyebrow") },
+              ].map((s) => (
+                <div key={s.l} className="border-l border-cream/10 pl-4">
+                  <div className="font-display text-3xl text-turquoise leading-none">{s.n}</div>
+                  <div className="mt-2 text-[10px] font-bold uppercase tracking-widest text-cream/50">
+                    {s.l}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[0.95] text-balance max-w-5xl animate-fade-up">
-            {t("hero.title")}
-          </h1>
-          <p className="mt-8 text-sm md:text-base font-semibold tracking-[0.28em] uppercase text-cream/60 animate-fade-up" style={{ animationDelay: "150ms" }}>
-            {t("hero.subtitle")}
-          </p>
-          <div className="mt-12 flex flex-wrap justify-center gap-3 animate-fade-up" style={{ animationDelay: "300ms" }}>
-            <a href={SOCIALS.spotifyShow} target="_blank" rel="noreferrer" className="btn-primary">
-              <Play className="size-4 fill-current" /> {t("hero.cta.spotify")}
-            </a>
-            <Link to="/episodes" className="btn-ghost">
-              {t("hero.cta.latest")} <ArrowRight className="size-4" />
-            </Link>
-            <Link to="/support" className="btn-outline-turquoise">
-              <Heart className="size-4" /> {t("hero.cta.support")}
-            </Link>
+
+          {/* Latest episode showcase card */}
+          <div className="relative hidden lg:block animate-fade-up" style={{ animationDelay: "300ms" }}>
+            <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-turquoise/20 via-transparent to-transparent blur-2xl" />
+            <div className="relative rounded-[2rem] border border-cream/10 bg-cream/[0.03] backdrop-blur-sm p-6 overflow-hidden">
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-turquoise">
+                  ✦ {t("episodes.eyebrow")}
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-cream/40">
+                  Ep · {latest[0]?.id ?? "—"}
+                </span>
+              </div>
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-cream/10 relative">
+                <img
+                  src={latest[0]?.cover}
+                  alt={latest[0]?.title ?? "Latest episode"}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <h3 className="font-display text-2xl leading-tight text-balance">
+                    {latest[0]?.title}
+                  </h3>
+                </div>
+              </div>
+              <a
+                href={SOCIALS.spotifyShow}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 flex items-center justify-between rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <Play className="size-4 fill-current" /> {t("hero.cta.spotify")}
+                </span>
+                <ArrowRight className="size-4" />
+              </a>
+            </div>
           </div>
+        </div>
+
+        {/* Scroll hint */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-cream/40 text-[10px] font-bold uppercase tracking-[0.4em]">
+          ✦ scroll
         </div>
       </section>
 
