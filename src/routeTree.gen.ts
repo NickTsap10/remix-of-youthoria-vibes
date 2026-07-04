@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as EpisodesRouteImport } from './routes/episodes'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AtlasRouteImport } from './routes/atlas'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -29,6 +30,11 @@ const SupportRoute = SupportRouteImport.update({
 const EpisodesRoute = EpisodesRouteImport.update({
   id: '/episodes',
   path: '/episodes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AtlasRoute = AtlasRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/atlas': typeof AtlasRoute
+  '/auth': typeof AuthRoute
   '/episodes': typeof EpisodesRoute
   '/support': typeof SupportRoute
   '/team': typeof TeamRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/atlas': typeof AtlasRoute
+  '/auth': typeof AuthRoute
   '/episodes': typeof EpisodesRoute
   '/support': typeof SupportRoute
   '/team': typeof TeamRoute
@@ -68,20 +76,29 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/atlas': typeof AtlasRoute
+  '/auth': typeof AuthRoute
   '/episodes': typeof EpisodesRoute
   '/support': typeof SupportRoute
   '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/atlas' | '/episodes' | '/support' | '/team'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/atlas'
+    | '/auth'
+    | '/episodes'
+    | '/support'
+    | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/atlas' | '/episodes' | '/support' | '/team'
+  to: '/' | '/about' | '/atlas' | '/auth' | '/episodes' | '/support' | '/team'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/atlas'
+    | '/auth'
     | '/episodes'
     | '/support'
     | '/team'
@@ -91,6 +108,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AtlasRoute: typeof AtlasRoute
+  AuthRoute: typeof AuthRoute
   EpisodesRoute: typeof EpisodesRoute
   SupportRoute: typeof SupportRoute
   TeamRoute: typeof TeamRoute
@@ -117,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/episodes'
       fullPath: '/episodes'
       preLoaderRoute: typeof EpisodesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/atlas': {
@@ -147,6 +172,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AtlasRoute: AtlasRoute,
+  AuthRoute: AuthRoute,
   EpisodesRoute: EpisodesRoute,
   SupportRoute: SupportRoute,
   TeamRoute: TeamRoute,
