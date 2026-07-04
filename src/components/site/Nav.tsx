@@ -11,7 +11,6 @@ const links: { to: string; key: DictKey }[] = [
   { to: "/team", key: "nav.team" },
   { to: "/about", key: "nav.about" },
   { to: "/support", key: "nav.support" },
-  { to: "/contact", key: "nav.contact" },
 ];
 
 export function Nav() {

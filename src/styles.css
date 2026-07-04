@@ -242,3 +242,18 @@
   text-transform: uppercase;
   color: var(--turquoise);
 }
+
+@utility input {
+  display: block;
+  width: 100%;
+  border-radius: 0.75rem;
+  background: rgba(252, 244, 233, 0.04);
+  border: 1px solid rgba(252, 244, 233, 0.14);
+  color: var(--cream);
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  outline: none;
+  &:focus { border-color: var(--turquoise); background: rgba(252, 244, 233, 0.06); }
+  &::placeholder { color: rgba(252, 244, 233, 0.35); }
+}
