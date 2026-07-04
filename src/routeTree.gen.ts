@@ -14,6 +14,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AtlasRouteImport } from './routes/atlas'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +43,11 @@ const AtlasRoute = AtlasRouteImport.update({
   path: '/atlas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -56,6 +62,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/atlas': typeof AtlasRoute
   '/auth': typeof AuthRoute
   '/episodes': typeof EpisodesRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/atlas': typeof AtlasRoute
   '/auth': typeof AuthRoute
   '/episodes': typeof EpisodesRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/atlas': typeof AtlasRoute
   '/auth': typeof AuthRoute
   '/episodes': typeof EpisodesRoute
@@ -86,17 +95,27 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/atlas'
     | '/auth'
     | '/episodes'
     | '/support'
     | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/atlas' | '/auth' | '/episodes' | '/support' | '/team'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/atlas'
+    | '/auth'
+    | '/episodes'
+    | '/support'
+    | '/team'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/atlas'
     | '/auth'
     | '/episodes'
@@ -107,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
   AtlasRoute: typeof AtlasRoute
   AuthRoute: typeof AuthRoute
   EpisodesRoute: typeof EpisodesRoute
@@ -151,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AtlasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -171,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
   AtlasRoute: AtlasRoute,
   AuthRoute: AuthRoute,
   EpisodesRoute: EpisodesRoute,
