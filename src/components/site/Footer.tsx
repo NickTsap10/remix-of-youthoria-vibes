@@ -51,6 +51,7 @@ export function Footer() {
       </div>
       <div className="container-x mt-16 pt-6 border-t border-cream/5 flex flex-col md:flex-row justify-between gap-3 text-[10px] font-semibold uppercase tracking-widest text-faint">
         <span>© {new Date().getFullYear()} YOUTHORIA PODCAST — {t("footer.rights")}</span>
+        <span>Created by Tsiaplias Nikos</span>
       </div>
     </footer>
   );

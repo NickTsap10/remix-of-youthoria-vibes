@@ -20,7 +20,15 @@ export const Route = createFileRoute("/support")({
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name required").max(120),
-  email: z.string().trim().email("Invalid email").max(255),
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .max(255)
+    .regex(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Please enter a valid email address (e.g. name@example.com)",
+    ),
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   message: z.string().trim().min(1, "Message required").max(2000),
 });
@@ -49,7 +57,13 @@ function SupportPage() {
     });
     setBusy(false);
     if (error) {
-      toast.error(label("Κάτι πήγε στραβά. Δοκιμάστε ξανά.", "Something went wrong. Please try again."));
+      console.error("support_submissions insert failed:", error);
+      toast.error(
+        label(
+          `Κάτι πήγε στραβά: ${error.message}`,
+          `Something went wrong: ${error.message}`,
+        ),
+      );
       return;
     }
     toast.success(label("Το μήνυμά σας στάλθηκε!", "Your message has been sent!"));
@@ -90,6 +104,10 @@ function SupportPage() {
               <input
                 required
                 type="email"
+                inputMode="email"
+                autoComplete="email"
+                pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                title="Please enter a valid email address (e.g. name@example.com)"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="input"
