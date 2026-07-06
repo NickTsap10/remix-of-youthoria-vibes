@@ -45,7 +45,7 @@ export function Footer() {
             <li><Link to="/episodes" className="hover:text-turquoise">{t("nav.episodes")}</Link></li>
             <li><Link to="/atlas" className="hover:text-turquoise">{t("nav.atlas")}</Link></li>
             <li><Link to="/team" className="hover:text-turquoise">{t("nav.team")}</Link></li>
-            <li><Link to="/support" className="hover:text-turquoise">{t("nav.support")}</Link></li>
+            <li><Link to="/contact" className="hover:text-turquoise">{t("nav.contact")}</Link></li>
           </ul>
         </div>
       </div>

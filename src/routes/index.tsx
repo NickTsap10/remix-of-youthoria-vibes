@@ -111,7 +111,7 @@ function Index() {
             Your support keeps us independent and youth-led.
           </p>
           <Link
-            to="/support"
+            to="/contact"
             className="mt-10 inline-flex items-center gap-2 px-8 py-4 bg-midnight text-cream rounded-full text-sm font-bold uppercase tracking-widest hover:bg-midnight/90 transition-transform hover:-translate-y-0.5"
           >
             <Heart className="size-4" /> {t("support.donate")}

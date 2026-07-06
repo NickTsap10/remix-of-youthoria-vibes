@@ -15,7 +15,7 @@ export const Route = createFileRoute("/contact")({
       { property: "og:description", content: "Send us a message." },
     ],
   }),
-  component: SupportPage,
+  component: ContactPage,
 });
 
 const schema = z.object({
@@ -33,7 +33,7 @@ const schema = z.object({
   message: z.string().trim().min(1, "Message required").max(2000),
 });
 
-function SupportPage() {
+function ContactPage() {
   const { lang } = useI18n();
   const isEl = lang === "el";
   const [busy, setBusy] = useState(false);
