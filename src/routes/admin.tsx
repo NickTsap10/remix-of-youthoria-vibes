@@ -11,7 +11,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Tab = "episodes" | "atlas" | "marquee";
+type Tab = "episodes" | "atlas" | "marquee" | "messages";
 
 function AdminPage() {
   const { user, loading, isAdmin, roleLoading } = useAuth();
@@ -62,7 +62,7 @@ function AdminPage() {
         </div>
 
         <div className="flex gap-2 border-b border-cream/10 mb-8">
-          {(["episodes", "atlas", "marquee"] as Tab[]).map((k) => (
+          {(["episodes", "atlas", "marquee", "messages"] as Tab[]).map((k) => (
             <button
               key={k}
               onClick={() => setTab(k)}
@@ -70,7 +70,7 @@ function AdminPage() {
                 tab === k ? "border-turquoise text-turquoise" : "border-transparent text-cream/50 hover:text-cream"
               }`}
             >
-              {k === "episodes" ? "Episodes" : k === "atlas" ? "Atlas Pins" : "Ticker"}
+              {k === "episodes" ? "Episodes" : k === "atlas" ? "Atlas Pins" : k === "marquee" ? "Ticker" : "Messages"}
             </button>
           ))}
         </div>
@@ -78,7 +78,70 @@ function AdminPage() {
         {tab === "episodes" && <EpisodesTab />}
         {tab === "atlas" && <AtlasTab />}
         {tab === "marquee" && <MarqueeTab />}
+        {tab === "messages" && <MessagesTab />}
       </div>
+    </div>
+  );
+}
+
+/* --------- Contact messages --------- */
+function MessagesTab() {
+  const qc = useQueryClient();
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["admin-messages"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("support_submissions")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  async function del(id: string) {
+    if (!confirm("Delete this message?")) return;
+    const { error } = await supabase.from("support_submissions").delete().eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success("Deleted");
+    qc.invalidateQueries({ queryKey: ["admin-messages"] });
+  }
+
+  if (isLoading) return <div className="text-cream/60">Loading messages…</div>;
+
+  return (
+    <div className="max-w-4xl">
+      <h2 className="font-display text-2xl mb-6">Contact messages ({data.length})</h2>
+      {data.length === 0 ? (
+        <div className="text-cream/50 rounded-2xl border border-cream/10 bg-cream/[0.02] p-6">
+          No messages yet.
+        </div>
+      ) : (
+        <div className="grid gap-4">
+          {data.map((m: any) => (
+            <article key={m.id} className="rounded-2xl border border-cream/10 bg-cream/[0.02] p-5">
+              <header className="flex items-start justify-between gap-4 mb-3">
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{m.name}</div>
+                  <div className="text-xs text-cream/60 truncate">
+                    <a href={`mailto:${m.email}`} className="hover:text-turquoise">{m.email}</a>
+                    {m.phone && <span> · {m.phone}</span>}
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <time className="text-[10px] uppercase tracking-widest text-cream/40">
+                    {new Date(m.created_at).toLocaleString()}
+                  </time>
+                  <button onClick={() => del(m.id)} className="text-red-400 hover:text-red-300">
+                    <Trash2 className="size-4" />
+                  </button>
+                </div>
+              </header>
+              <p className="text-sm text-cream/80 whitespace-pre-wrap">{m.message}</p>
+            </article>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
