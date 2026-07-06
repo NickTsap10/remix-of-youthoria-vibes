@@ -6,7 +6,7 @@ import { StarField } from "@/components/site/StarField";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/support")({
+export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact Us — Youthoria Podcast" },

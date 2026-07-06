@@ -10,8 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
-import { Route as SupportRouteImport } from './routes/support'
 import { Route as EpisodesRouteImport } from './routes/episodes'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AtlasRouteImport } from './routes/atlas'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -23,14 +23,14 @@ const TeamRoute = TeamRouteImport.update({
   path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SupportRoute = SupportRouteImport.update({
-  id: '/support',
-  path: '/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const EpisodesRoute = EpisodesRouteImport.update({
   id: '/episodes',
   path: '/episodes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -65,8 +65,8 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/atlas': typeof AtlasRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
-  '/support': typeof SupportRoute
   '/team': typeof TeamRoute
 }
 export interface FileRoutesByTo {
@@ -75,8 +75,8 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/atlas': typeof AtlasRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
-  '/support': typeof SupportRoute
   '/team': typeof TeamRoute
 }
 export interface FileRoutesById {
@@ -86,8 +86,8 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/atlas': typeof AtlasRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
-  '/support': typeof SupportRoute
   '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
@@ -98,8 +98,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/atlas'
     | '/auth'
+    | '/contact'
     | '/episodes'
-    | '/support'
     | '/team'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -108,8 +108,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/atlas'
     | '/auth'
+    | '/contact'
     | '/episodes'
-    | '/support'
     | '/team'
   id:
     | '__root__'
@@ -118,8 +118,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/atlas'
     | '/auth'
+    | '/contact'
     | '/episodes'
-    | '/support'
     | '/team'
   fileRoutesById: FileRoutesById
 }
@@ -129,8 +129,8 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AtlasRoute: typeof AtlasRoute
   AuthRoute: typeof AuthRoute
+  ContactRoute: typeof ContactRoute
   EpisodesRoute: typeof EpisodesRoute
-  SupportRoute: typeof SupportRoute
   TeamRoute: typeof TeamRoute
 }
 
@@ -143,18 +143,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/support': {
-      id: '/support'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof SupportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/episodes': {
       id: '/episodes'
       path: '/episodes'
       fullPath: '/episodes'
       preLoaderRoute: typeof EpisodesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -201,20 +201,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AtlasRoute: AtlasRoute,
   AuthRoute: AuthRoute,
+  ContactRoute: ContactRoute,
   EpisodesRoute: EpisodesRoute,
-  SupportRoute: SupportRoute,
   TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
