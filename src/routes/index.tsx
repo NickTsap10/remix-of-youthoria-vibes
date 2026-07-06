@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
 import { GreeceMap } from "@/components/site/GreeceMap";
 import { team } from "@/data/team";
+import { SOCIALS } from "@/lib/socials";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -110,12 +111,14 @@ function Index() {
           <p className="mt-5 text-lg font-medium max-w-[46ch] mx-auto">
             Your support keeps us independent and youth-led.
           </p>
-          <Link
-            to="/contact"
+          <a
+            href={SOCIALS.donate}
+            target="_blank"
+            rel="noreferrer"
             className="mt-10 inline-flex items-center gap-2 px-8 py-4 bg-midnight text-cream rounded-full text-sm font-bold uppercase tracking-widest hover:bg-midnight/90 transition-transform hover:-translate-y-0.5"
           >
             <Heart className="size-4" /> {t("support.donate")}
-          </Link>
+          </a>
         </div>
       </section>
     </div>
