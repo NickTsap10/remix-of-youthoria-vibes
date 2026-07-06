@@ -32,7 +32,7 @@ export function GreeceMap({ pins = [] }: { pins?: MapPin[] }) {
               p.active ? "size-5 ring-turquoise/50" : "size-4 ring-blue-500/25"
             }`} />
           </span>
-          <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-cream/90 opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-cream/95 px-2 py-0.5 text-xs font-semibold text-black opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
             {p.name}
           </span>
         </button>

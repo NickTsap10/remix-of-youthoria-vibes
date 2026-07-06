@@ -1,8 +1,9 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Heart } from "lucide-react";
 import { useI18n, type Lang, type DictKey } from "@/lib/i18n";
 import logoAsset from "@/assets/brand/youthoria-script.png.asset.json";
+import { SOCIALS } from "@/lib/socials";
 
 const links: { to: string; key: DictKey }[] = [
   { to: "/", key: "nav.home" },
@@ -45,12 +46,12 @@ export function Nav() {
           : "bg-transparent"
       }`}
     >
-      <div className="container-x flex h-16 items-center justify-between">
+      <div className="container-x flex h-20 md:h-24 items-center justify-between">
         <Link to="/" onClick={goHome} className="flex items-center gap-2 group" aria-label="Youthoria">
           <img
             src={logoAsset.url}
             alt="Youthoria"
-            className="h-11 md:h-14 w-auto object-contain drop-shadow-[0_0_18px_rgba(3,147,151,0.35)]"
+            className="h-14 md:h-20 w-auto object-contain drop-shadow-[0_0_18px_rgba(3,147,151,0.35)]"
           />
         </Link>
 
@@ -70,6 +71,14 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-3">
+          <a
+            href={SOCIALS.donate}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-turquoise text-midnight px-4 py-2 text-[11px] font-bold uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+          >
+            <Heart className="size-3.5" /> {t("support.donate")}
+          </a>
           <LangSwitcher lang={lang} onChange={setLang} />
           <button
             aria-label="Menu"
@@ -97,6 +106,14 @@ export function Nav() {
                 {t(l.key)}
               </Link>
             ))}
+            <a
+              href={SOCIALS.donate}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-5 py-3 text-xs font-bold uppercase tracking-widest"
+            >
+              <Heart className="size-4" /> {t("support.donate")}
+            </a>
           </div>
         </div>
       )}
