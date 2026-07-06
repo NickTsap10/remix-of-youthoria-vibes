@@ -81,7 +81,7 @@ function ContactPage() {
               {label("Επικοινωνία", "Get in touch")}
             </div>
             <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[0.95] text-balance">
-              {label("Στηρίξτε το Youthoria", "Support Youthoria")}
+              {label("Επικοινωνήστε με την ομάδα μας", "Contact Our Team")}
             </h1>
             <p className="mt-6 text-cream/70 leading-relaxed">
               {label(
