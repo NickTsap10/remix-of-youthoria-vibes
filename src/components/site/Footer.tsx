@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Music2, Mail } from "lucide-react";
+import { Instagram, Music2, Mail, Heart } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { SOCIALS } from "@/lib/socials";
 
@@ -15,6 +15,20 @@ export function Footer() {
   const { t } = useI18n();
   return (
     <footer className="border-t border-cream/10 pt-20 pb-24">
+      <div className="container-x mb-16 flex flex-col md:flex-row items-center justify-between gap-6 rounded-3xl border border-turquoise/30 bg-turquoise/[0.06] px-8 py-8">
+        <div>
+          <div className="font-display text-2xl md:text-3xl">Support Youthoria</div>
+          <p className="text-sm text-cream/70 mt-1">{t("footer.tagline")}</p>
+        </div>
+        <a
+          href={SOCIALS.donate}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-full bg-turquoise text-midnight px-6 py-3 text-xs font-bold uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+        >
+          <Heart className="size-4" /> {t("support.donate")}
+        </a>
+      </div>
       <div className="container-x grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <div className="flex items-center gap-2">
