@@ -6,7 +6,7 @@ import { StarField } from "@/components/site/StarField";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/support")({
+export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact Us — Youthoria Podcast" },
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/support")({
       { property: "og:description", content: "Send us a message." },
     ],
   }),
-  component: SupportPage,
+  component: ContactPage,
 });
 
 const schema = z.object({
@@ -33,7 +33,7 @@ const schema = z.object({
   message: z.string().trim().min(1, "Message required").max(2000),
 });
 
-function SupportPage() {
+function ContactPage() {
   const { lang } = useI18n();
   const isEl = lang === "el";
   const [busy, setBusy] = useState(false);
