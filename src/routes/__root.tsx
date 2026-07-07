@@ -89,13 +89,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams.",
       },
       { name: "author", content: "Youthoria Podcast" },
-      { property: "og:title", content: "Youthoria Podcast" },
+      { property: "og:title", content: "Youthoria Podcast — From Young People, For Young People" },
       {
         property: "og:description",
         content: "From Young People, For Young People. An independent youth-led podcast from Greece.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Youthoria Podcast — From Young People, For Young People" },
+      { name: "description", content: "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams." },
+      { property: "og:description", content: "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams." },
+      { name: "twitter:description", content: "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/1GjhAQunCVafz4R0mqrzBLUem5M2/social-images/social-1783425130389-viber_image_2026-07-07_14-51-57-657.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/1GjhAQunCVafz4R0mqrzBLUem5M2/social-images/social-1783425130389-viber_image_2026-07-07_14-51-57-657.webp" },
     ],
     links: [
       {
