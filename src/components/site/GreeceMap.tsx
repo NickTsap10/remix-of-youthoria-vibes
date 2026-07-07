@@ -1,4 +1,5 @@
 import greeceMapAsset from "@/assets/map/greece-map.png.asset.json";
+import { getAssetUrl } from "@/lib/assets";
 
 export type MapPin = {
   id: string;
@@ -13,7 +14,7 @@ export function GreeceMap({ pins = [] }: { pins?: MapPin[] }) {
   return (
     <div className="relative w-full aspect-square">
       <img
-        src={greeceMapAsset.url}
+        src={getAssetUrl(greeceMapAsset)}
         alt="Map of Greece"
         className="absolute inset-0 w-full h-full object-contain opacity-90 [filter:invert(1)_brightness(1.1)_sepia(0.3)_hue-rotate(140deg)_saturate(2)]"
       />
