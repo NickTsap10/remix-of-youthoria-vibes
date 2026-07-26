@@ -15,7 +15,6 @@ import { I18nProvider } from "../lib/i18n";
 import { Nav } from "../components/site/Nav";
 import { Footer } from "../components/site/Footer";
 import { Ticker } from "../components/site/Ticker";
-import { DonationPopup } from "../components/site/DonationPopup";
 
 function NotFoundComponent() {
   return (
@@ -151,7 +150,6 @@ function RootComponent() {
           </main>
           <Ticker />
           <Footer />
-          <DonationPopup />
         </div>
       </I18nProvider>
     </QueryClientProvider>
