@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -26,6 +27,11 @@ const TeamRoute = TeamRouteImport.update({
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EpisodesRoute = EpisodesRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/privacy-policy'
     | '/reviews'
     | '/team'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/privacy-policy'
     | '/reviews'
     | '/team'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/privacy-policy'
     | '/reviews'
     | '/team'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EpisodesRoute: typeof EpisodesRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ReviewsRoute: typeof ReviewsRoute
   TeamRoute: typeof TeamRoute
 }
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/episodes': {
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EpisodesRoute: EpisodesRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ReviewsRoute: ReviewsRoute,
   TeamRoute: TeamRoute,
 }
