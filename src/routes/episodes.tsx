@@ -45,16 +45,12 @@ function EpisodesPage() {
       <section className="relative">
         <StarField />
         <div className="container-x relative">
-          {SOCIALS.booking && (
-            <a
-              href={SOCIALS.booking}
-              target="_blank"
-              rel="noreferrer"
-              className="mb-6 inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-widest shadow-lg shadow-turquoise/20 hover:-translate-y-0.5 transition-transform"
-            >
-              <CalendarCheck className="size-4" /> {t("episodes.book")}
-            </a>
-          )}
+          <a
+            href="#"
+            className="mb-6 inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-widest shadow-lg shadow-turquoise/20 hover:-translate-y-0.5 transition-transform"
+          >
+            <CalendarCheck className="size-4" /> {t("episodes.book")}
+          </a>
           <div className="label-eyebrow mb-4">{t("episodes.eyebrow")}</div>
           <h1 className="font-display text-5xl md:text-7xl leading-[0.95] max-w-3xl text-balance">
             {t("episodes.title")}
