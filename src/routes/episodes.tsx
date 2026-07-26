@@ -4,7 +4,6 @@ import { ArrowUpRight, CalendarCheck, X, Music2, Podcast, Apple } from "lucide-r
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
-import { SOCIALS } from "@/lib/socials";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/episodes")({
