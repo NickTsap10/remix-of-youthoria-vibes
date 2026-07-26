@@ -119,13 +119,7 @@ export const dict = {
   "contact.message": { el: "Μήνυμα", en: "Message" },
   "contact.send": { el: "Αποστολή", en: "Send" },
 
-  "popup.title": { el: "Στήριξε το Youthoria ✦", en: "Support Youthoria ✦" },
-  "popup.body": {
-    el: "Ένα ανεξάρτητο podcast από νέους, για νέους. Η στήριξή σου κάνει τη διαφορά.",
-    en: "An independent podcast by youth, for youth. Your support makes the difference.",
-  },
-  "popup.donate": { el: "Θέλω να στηρίξω", en: "I want to support" },
-  "popup.later": { el: "Ίσως αργότερα", en: "Maybe later" },
+  "episodes.book": { el: "Κλείσε το Podcast σου", en: "Book Your Podcast" },
 
   "ticker.1": { el: "Τσέκαρε τα νέα επεισόδια στο Spotify", en: "Check the new episodes on Spotify" },
   "ticker.2": { el: "Follow us on Instagram & TikTok @youthoria.podcast", en: "Follow us on Instagram & TikTok @youthoria.podcast" },
