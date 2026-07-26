@@ -6,4 +6,7 @@ export const SOCIALS = {
   tiktok: "https://www.tiktok.com/@youthoria.podcast",
   email: "info@youthoria.gr",
   donate: "https://whydonate.com/fundraising/youthoria-podcast-donate",
+  // Set this to your booking page URL (Calendly, form, etc.).
+  // While empty, the "Book Your Podcast" button is hidden.
+  booking: "",
 } as const;
