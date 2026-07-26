@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { LogOut, Trash2 } from "lucide-react";
+import { LogOut, Trash2, Check, X, Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Tab = "episodes" | "atlas" | "marquee" | "messages";
+type Tab = "episodes" | "reviews" | "marquee" | "messages";
 
 function AdminPage() {
   const { user, loading, isAdmin, roleLoading } = useAuth();
@@ -62,7 +62,7 @@ function AdminPage() {
         </div>
 
         <div className="flex gap-2 border-b border-cream/10 mb-8">
-          {(["episodes", "atlas", "marquee", "messages"] as Tab[]).map((k) => (
+          {(["episodes", "reviews", "marquee", "messages"] as Tab[]).map((k) => (
             <button
               key={k}
               onClick={() => setTab(k)}
@@ -70,13 +70,13 @@ function AdminPage() {
                 tab === k ? "border-turquoise text-turquoise" : "border-transparent text-cream/50 hover:text-cream"
               }`}
             >
-              {k === "episodes" ? "Episodes" : k === "atlas" ? "Atlas Pins" : k === "marquee" ? "Ticker" : "Messages"}
+              {k === "episodes" ? "Episodes" : k === "reviews" ? "Reviews" : k === "marquee" ? "Ticker" : "Messages"}
             </button>
           ))}
         </div>
 
         {tab === "episodes" && <EpisodesTab />}
-        {tab === "atlas" && <AtlasTab />}
+        {tab === "reviews" && <ReviewsTab />}
         {tab === "marquee" && <MarqueeTab />}
         {tab === "messages" && <MessagesTab />}
       </div>
@@ -213,76 +213,97 @@ function EpisodesTab() {
   );
 }
 
-/* --------- Atlas --------- */
-function AtlasTab() {
+/* --------- Reviews --------- */
+function ReviewsTab() {
   const qc = useQueryClient();
-  const [form, setForm] = useState({ map_name: "", podcast_name: "", info_text: "", map_x_percent: "50", map_y_percent: "50" });
-  const { data = [] } = useQuery({
-    queryKey: ["admin-atlas"],
+  const [filter, setFilter] = useState<"pending" | "approved" | "rejected">("pending");
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["admin-reviews"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("atlas_locations").select("*").order("created_at", { ascending: false });
+      const { data, error } = await supabase.from("reviews").select("*").order("created_at", { ascending: false });
       if (error) throw error;
       return data;
     },
   });
 
-  async function add(e: React.FormEvent) {
-    e.preventDefault();
-    const x = Number(form.map_x_percent);
-    const y = Number(form.map_y_percent);
-    if (isNaN(x) || isNaN(y) || x < 0 || x > 100 || y < 0 || y > 100) return toast.error("X/Y must be 0–100");
-    const { error } = await supabase.from("atlas_locations").insert({
-      map_name: form.map_name,
-      podcast_name: form.podcast_name,
-      info_text: form.info_text || null,
-      map_x_percent: x,
-      map_y_percent: y,
-    });
+  async function setStatus(id: string, status: "approved" | "rejected") {
+    const { error } = await supabase.from("reviews").update({ status }).eq("id", id);
     if (error) return toast.error(error.message);
-    toast.success("Location added");
-    setForm({ map_name: "", podcast_name: "", info_text: "", map_x_percent: "50", map_y_percent: "50" });
-    qc.invalidateQueries({ queryKey: ["admin-atlas"] });
-    qc.invalidateQueries({ queryKey: ["atlas"] });
+    toast.success(status === "approved" ? "Approved" : "Rejected");
+    qc.invalidateQueries({ queryKey: ["admin-reviews"] });
+    qc.invalidateQueries({ queryKey: ["reviews"] });
   }
 
   async function del(id: string) {
-    if (!confirm("Delete this pin?")) return;
-    const { error } = await supabase.from("atlas_locations").delete().eq("id", id);
+    if (!confirm("Delete this review?")) return;
+    const { error } = await supabase.from("reviews").delete().eq("id", id);
     if (error) return toast.error(error.message);
     toast.success("Deleted");
-    qc.invalidateQueries({ queryKey: ["admin-atlas"] });
-    qc.invalidateQueries({ queryKey: ["atlas"] });
+    qc.invalidateQueries({ queryKey: ["admin-reviews"] });
+    qc.invalidateQueries({ queryKey: ["reviews"] });
   }
 
+  const rows = data.filter((r: any) => r.status === filter);
+
+  if (isLoading) return <div className="text-cream/60">Loading reviews…</div>;
+
   return (
-    <div className="grid lg:grid-cols-2 gap-8">
-      <form onSubmit={add} className="rounded-3xl border border-cream/10 bg-cream/[0.02] p-6 grid gap-4 h-fit">
-        <h2 className="font-display text-2xl">New pin</h2>
-        <FormField label="Map location name (e.g. Athens)" value={form.map_name} onChange={(v) => setForm({ ...form, map_name: v })} required />
-        <FormField label="Podcast / episode name" value={form.podcast_name} onChange={(v) => setForm({ ...form, podcast_name: v })} required />
-        <label className="block">
-          <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">Info text</span>
-          <textarea rows={3} className="input resize-none" value={form.info_text} onChange={(e) => setForm({ ...form, info_text: e.target.value })} />
-        </label>
-        <div className="grid grid-cols-2 gap-3">
-          <FormField label="X % (0–100, left→right)" value={form.map_x_percent} onChange={(v) => setForm({ ...form, map_x_percent: v })} />
-          <FormField label="Y % (0–100, top→bottom)" value={form.map_y_percent} onChange={(v) => setForm({ ...form, map_y_percent: v })} />
-        </div>
-        <button className="btn-primary justify-center">Add pin</button>
-      </form>
-      <div className="grid gap-3">
-        <h2 className="font-display text-2xl">Existing ({data.length})</h2>
-        {data.map((l: any) => (
-          <div key={l.id} className="flex items-center justify-between gap-4 rounded-2xl border border-cream/10 bg-cream/[0.02] p-4">
-            <div className="min-w-0">
-              <div className="text-[10px] uppercase tracking-widest text-turquoise">{l.map_name} · x{l.map_x_percent} y{l.map_y_percent}</div>
-              <div className="font-medium truncate">{l.podcast_name}</div>
-              {l.info_text && <div className="text-xs text-cream/50 line-clamp-2">{l.info_text}</div>}
-            </div>
-            <button onClick={() => del(l.id)} className="text-red-400 hover:text-red-300 shrink-0"><Trash2 className="size-4" /></button>
-          </div>
+    <div className="max-w-4xl">
+      <div className="flex flex-wrap gap-2 mb-6">
+        {(["pending", "approved", "rejected"] as const).map((s) => (
+          <button
+            key={s}
+            onClick={() => setFilter(s)}
+            className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${
+              filter === s ? "bg-turquoise text-midnight" : "bg-cream/5 text-cream/60 hover:text-cream"
+            }`}
+          >
+            {s} ({data.filter((r: any) => r.status === s).length})
+          </button>
         ))}
       </div>
+
+      {rows.length === 0 ? (
+        <div className="text-cream/50 rounded-2xl border border-cream/10 bg-cream/[0.02] p-6">
+          No {filter} reviews.
+        </div>
+      ) : (
+        <div className="grid gap-4">
+          {rows.map((r: any) => (
+            <article key={r.id} className="rounded-2xl border border-cream/10 bg-cream/[0.02] p-5">
+              <header className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{r.first_name} {r.last_name}</div>
+                  <div className="flex items-center gap-0.5 mt-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className={`size-3.5 ${i < r.rating ? "fill-turquoise text-turquoise" : "text-cream/25"}`} />
+                    ))}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <time className="text-[10px] uppercase tracking-widest text-cream/40">
+                    {new Date(r.created_at).toLocaleDateString()}
+                  </time>
+                  {r.status !== "approved" && (
+                    <button onClick={() => setStatus(r.id, "approved")} className="p-2 rounded-full bg-turquoise/15 text-turquoise hover:bg-turquoise/25" aria-label="Approve">
+                      <Check className="size-4" />
+                    </button>
+                  )}
+                  {r.status !== "rejected" && (
+                    <button onClick={() => setStatus(r.id, "rejected")} className="p-2 rounded-full bg-cream/5 text-cream/60 hover:text-cream" aria-label="Reject">
+                      <X className="size-4" />
+                    </button>
+                  )}
+                  <button onClick={() => del(r.id)} className="text-red-400 hover:text-red-300 p-2" aria-label="Delete">
+                    <Trash2 className="size-4" />
+                  </button>
+                </div>
+              </header>
+              <p className="text-sm text-cream/80 whitespace-pre-wrap">{r.description}</p>
+            </article>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

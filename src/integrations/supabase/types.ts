@@ -14,36 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      atlas_locations: {
-        Row: {
-          created_at: string
-          id: string
-          info_text: string | null
-          map_name: string
-          map_x_percent: number
-          map_y_percent: number
-          podcast_name: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          info_text?: string | null
-          map_name: string
-          map_x_percent: number
-          map_y_percent: number
-          podcast_name: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          info_text?: string | null
-          map_name?: string
-          map_x_percent?: number
-          map_y_percent?: number
-          podcast_name?: string
-        }
-        Relationships: []
-      }
       episodes: {
         Row: {
           category: string | null
@@ -94,6 +64,39 @@ export type Database = {
           id?: string
           sort_order?: number
           text_content?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          created_at: string
+          description: string
+          first_name: string
+          id: string
+          last_name: string
+          rating: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          first_name: string
+          id?: string
+          last_name: string
+          rating: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          rating?: number
+          status?: string
           updated_at?: string
         }
         Relationships: []

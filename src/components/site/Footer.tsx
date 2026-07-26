@@ -57,7 +57,7 @@ export function Footer() {
           <h5 className="label-eyebrow mb-5">{t("footer.explore")}</h5>
           <ul className="space-y-3 text-sm text-cream/70">
             <li><Link to="/episodes" className="hover:text-turquoise">{t("nav.episodes")}</Link></li>
-            <li><Link to="/atlas" className="hover:text-turquoise">{t("nav.atlas")}</Link></li>
+            <li><Link to="/reviews" className="hover:text-turquoise">{t("nav.reviews")}</Link></li>
             <li><Link to="/team" className="hover:text-turquoise">{t("nav.team")}</Link></li>
             <li><Link to="/contact" className="hover:text-turquoise">{t("nav.contact")}</Link></li>
           </ul>

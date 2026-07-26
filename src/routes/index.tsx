@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Heart, MapPin, Users } from "lucide-react";
+import { ArrowRight, Heart, Star, Users } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
-import { GreeceMap } from "@/components/site/GreeceMap";
 import { team } from "@/data/team";
 import { SOCIALS } from "@/lib/socials";
 
@@ -30,30 +29,21 @@ function Index() {
         </div>
       </section>
 
-      {/* ATLAS */}
+      {/* REVIEWS */}
       <section className="section-pad border-t border-cream/5 bg-gradient-to-b from-transparent via-turquoise/[0.03] to-transparent">
-        <div className="container-x grid lg:grid-cols-2 gap-16 items-center">
-          <div className="order-2 lg:order-1 relative">
-            <div className="absolute -inset-8 rounded-[2.5rem] bg-turquoise/[0.06] blur-3xl" />
-            <div className="relative">
-              <GreeceMap />
-            </div>
+        <div className="container-x max-w-2xl mx-auto text-center">
+          <div className="label-eyebrow mb-3 inline-flex items-center gap-2 justify-center">
+            <Star className="size-3.5" /> {t("reviews.eyebrow")}
           </div>
-          <div className="order-1 lg:order-2 animate-fade-up">
-            <div className="label-eyebrow mb-3 inline-flex items-center gap-2">
-              <MapPin className="size-3.5" /> Our Map
-            </div>
-            <h2 className="font-display text-4xl md:text-6xl leading-[1.02] text-balance">
-              Youthoria Atlas
-            </h2>
-            <p className="mt-6 text-lg text-cream/75 leading-relaxed max-w-[46ch] text-pretty">
-              Mapping stories across the Aegean. We travel to document the lives of young
-              people in every corner of Greece.
-            </p>
-            <Link to="/atlas" className="btn-primary mt-8">
-              {t("atlas.explore")} <ArrowRight className="size-4" />
-            </Link>
-          </div>
+          <h2 className="font-display text-4xl md:text-6xl leading-[1.02] text-balance">
+            {t("reviews.heading")}
+          </h2>
+          <p className="mt-6 text-lg text-cream/75 leading-relaxed text-pretty">
+            {t("reviews.body")}
+          </p>
+          <Link to="/reviews" className="btn-primary mt-8">
+            {t("reviews.cta")} <ArrowRight className="size-4" />
+          </Link>
         </div>
       </section>
 
