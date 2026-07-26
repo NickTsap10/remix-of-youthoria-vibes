@@ -149,7 +149,16 @@ function MessagesTab() {
 /* --------- Episodes --------- */
 function EpisodesTab() {
   const qc = useQueryClient();
-  const [form, setForm] = useState({ title: "", duration: "", image_url: "", spotify_url: "", category: "" });
+  const [form, setForm] = useState({
+    title: "",
+    duration: "",
+    image_url: "",
+    spotify_url: "",
+    google_url: "",
+    apple_url: "",
+    category: "",
+  });
+  const [urlError, setUrlError] = useState<string | null>(null);
   const { data = [] } = useQuery({
     queryKey: ["admin-episodes"],
     queryFn: async () => {
@@ -161,17 +170,25 @@ function EpisodesTab() {
 
   async function add(e: React.FormEvent) {
     e.preventDefault();
+    if (!form.spotify_url.trim() && !form.google_url.trim() && !form.apple_url.trim()) {
+      setUrlError("At least one podcast URL is required (Spotify, Google or Apple).");
+      toast.error("At least one podcast URL is required");
+      return;
+    }
+    setUrlError(null);
     const { error } = await supabase.from("episodes").insert({
       title: form.title,
       duration: form.duration,
       image_url: form.image_url || null,
-      spotify_url: form.spotify_url,
+      spotify_url: form.spotify_url.trim() || null,
+      google_url: form.google_url.trim() || null,
+      apple_url: form.apple_url.trim() || null,
       category: form.category || null,
       sort_order: (data[0]?.sort_order ?? 0) + 1,
     });
     if (error) return toast.error(error.message);
     toast.success("Episode added");
-    setForm({ title: "", duration: "", image_url: "", spotify_url: "", category: "" });
+    setForm({ title: "", duration: "", image_url: "", spotify_url: "", google_url: "", apple_url: "", category: "" });
     qc.invalidateQueries({ queryKey: ["admin-episodes"] });
     qc.invalidateQueries({ queryKey: ["episodes"] });
   }
@@ -193,7 +210,12 @@ function EpisodesTab() {
         <FormField label="Duration (e.g. 48 MIN)" value={form.duration} onChange={(v) => setForm({ ...form, duration: v })} required />
         <FormField label="Category" value={form.category} onChange={(v) => setForm({ ...form, category: v })} />
         <FormField label="Background image URL" value={form.image_url} onChange={(v) => setForm({ ...form, image_url: v })} />
-        <FormField label="Spotify URL" value={form.spotify_url} onChange={(v) => setForm({ ...form, spotify_url: v })} required />
+        <FormField label="Spotify URL" value={form.spotify_url} onChange={(v) => setForm({ ...form, spotify_url: v })} />
+        <FormField label="Google Podcasts URL" value={form.google_url} onChange={(v) => setForm({ ...form, google_url: v })} />
+        <FormField label="Apple Podcasts URL" value={form.apple_url} onChange={(v) => setForm({ ...form, apple_url: v })} />
+        {urlError && (
+          <p role="alert" className="text-xs text-red-400 -mt-1">{urlError}</p>
+        )}
         <button className="btn-primary justify-center">Add episode</button>
       </form>
       <div className="grid gap-3">
@@ -203,7 +225,15 @@ function EpisodesTab() {
             <div className="min-w-0">
               <div className="text-[10px] uppercase tracking-widest text-turquoise">{e.category ?? "—"} · {e.duration}</div>
               <div className="font-medium truncate">{e.title}</div>
-              <a className="text-xs text-cream/40 truncate block" href={e.spotify_url} target="_blank" rel="noreferrer">{e.spotify_url}</a>
+              <div className="text-xs text-cream/40 flex flex-wrap gap-x-3">
+                {[["Spotify", e.spotify_url], ["Google", e.google_url], ["Apple", e.apple_url]].map(([label, url]: any) =>
+                  url ? (
+                    <a key={label} href={url} target="_blank" rel="noreferrer" className="hover:text-turquoise">{label}</a>
+                  ) : (
+                    <span key={label} className="opacity-40 line-through">{label}</span>
+                  )
+                )}
+              </div>
             </div>
             <button onClick={() => del(e.id)} className="text-red-400 hover:text-red-300 shrink-0"><Trash2 className="size-4" /></button>
           </div>
