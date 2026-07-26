@@ -9,8 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -18,6 +20,11 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -26,6 +33,11 @@ const TeamRoute = TeamRouteImport.update({
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EpisodesRoute = EpisodesRouteImport.update({
@@ -66,8 +78,10 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,8 +90,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,8 +103,10 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
+  '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -99,8 +117,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/privacy-policy'
     | '/reviews'
     | '/team'
+    | '/terms'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -109,8 +129,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/privacy-policy'
     | '/reviews'
     | '/team'
+    | '/terms'
   id:
     | '__root__'
     | '/'
@@ -119,8 +141,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/privacy-policy'
     | '/reviews'
     | '/team'
+    | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,12 +154,21 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EpisodesRoute: typeof EpisodesRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ReviewsRoute: typeof ReviewsRoute
   TeamRoute: typeof TeamRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
@@ -148,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/episodes': {
@@ -202,8 +242,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EpisodesRoute: EpisodesRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ReviewsRoute: ReviewsRoute,
   TeamRoute: TeamRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

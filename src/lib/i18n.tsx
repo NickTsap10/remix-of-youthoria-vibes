@@ -20,6 +20,27 @@ export const dict = {
   "nav.about": { el: "Σχετικά", en: "About" },
   "nav.support": { el: "Στήριξη", en: "Support" },
   "nav.contact": { el: "Επικοινωνία", en: "Contact" },
+  "nav.privacy": { el: "Πολιτική Απορρήτου", en: "Privacy Policy" },
+  "nav.terms": { el: "Όροι Χρήσης", en: "Terms & Conditions" },
+  "footer.legal": { el: "Νομικά", en: "Legal" },
+
+  "legal.updated": { el: "Τελευταία ενημέρωση", en: "Last updated" },
+  "legal.date": { el: "Ιούλιος 2026", en: "July 2026" },
+
+  "consent.contact.pre": {
+    el: "Υποβάλλοντας αυτή τη φόρμα, συμφωνείτε με την επεξεργασία των προσωπικών σας δεδομένων (όνομα, email, τηλέφωνο) για την απάντηση στο αίτημά σας, σύμφωνα με την ",
+    en: "By submitting this form, you agree to the processing of your personal data (name, email, phone number) to respond to your inquiry in accordance with our ",
+  },
+  "consent.review.pre": {
+    el: "Συμφωνώ με την επεξεργασία των δεδομένων μου και παραχωρώ στο Youthoria την άδεια να δημοσιεύσει την αξιολόγησή μου μαζί με το όνομά μου στην ιστοσελίδα, σύμφωνα με την ",
+    en: "I agree to the processing of my data and grant Youthoria permission to publish my review alongside my provided name on this website in accordance with the ",
+  },
+  "consent.link": { el: "Πολιτική Απορρήτου", en: "Privacy Policy" },
+  "consent.period": { el: ".", en: "." },
+  "consent.required": {
+    el: "Πρέπει να αποδεχτείτε την Πολιτική Απορρήτου.",
+    en: "You must accept the Privacy Policy.",
+  },
 
   "hero.title": {
     el: "Ενισχύουμε τη φωνή μιας γενιάς.",

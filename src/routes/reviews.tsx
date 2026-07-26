@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -101,12 +101,15 @@ function Stars({ value }: { value: number }) {
 
 function ReviewModal({ onClose }: { onClose: () => void }) {
   const qc = useQueryClient();
+  const { t } = useI18n();
   const [form, setForm] = useState({ first_name: "", last_name: "", description: "" });
   const [rating, setRating] = useState(5);
+  const [consent, setConsent] = useState(false);
   const [saving, setSaving] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!consent) return toast.error(t("consent.required"));
     const parsed = reviewSchema.safeParse({ ...form, rating });
     if (!parsed.success) return toast.error(parsed.error.issues[0].message);
     setSaving(true);
@@ -162,6 +165,23 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
+        </label>
+
+        <label className="flex items-start gap-3 text-xs text-cream/60 leading-relaxed">
+          <input
+            type="checkbox"
+            required
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            className="mt-0.5 size-4 shrink-0 accent-turquoise"
+          />
+          <span>
+            {t("consent.review.pre")}
+            <Link to="/privacy-policy" className="text-turquoise underline underline-offset-2">
+              {t("consent.link")}
+            </Link>
+            {t("consent.period")}
+          </span>
         </label>
 
         <button disabled={saving} className="btn-primary justify-center disabled:opacity-50">

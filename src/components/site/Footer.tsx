@@ -60,6 +60,8 @@ export function Footer() {
             <li><Link to="/reviews" className="hover:text-turquoise">{t("nav.reviews")}</Link></li>
             <li><Link to="/team" className="hover:text-turquoise">{t("nav.team")}</Link></li>
             <li><Link to="/contact" className="hover:text-turquoise">{t("nav.contact")}</Link></li>
+            <li><Link to="/privacy-policy" className="hover:text-turquoise">{t("nav.privacy")}</Link></li>
+            <li><Link to="/terms" className="hover:text-turquoise">{t("nav.terms")}</Link></li>
           </ul>
         </div>
       </div>
