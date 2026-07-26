@@ -15,7 +15,7 @@ type Dict = Record<string, { el: string; en: string }>;
 export const dict = {
   "nav.home": { el: "Αρχική", en: "Home" },
   "nav.episodes": { el: "Επεισόδια", en: "Episodes" },
-  "nav.atlas": { el: "Άτλας", en: "Atlas" },
+  "nav.reviews": { el: "Κριτικές", en: "Reviews" },
   "nav.team": { el: "Η Ομάδα", en: "The Team" },
   "nav.about": { el: "Σχετικά", en: "About" },
   "nav.support": { el: "Στήριξη", en: "Support" },
@@ -64,19 +64,17 @@ export const dict = {
   "values.dreams": { el: "Όνειρα", en: "Dreams" },
   "values.participation": { el: "Συμμετοχή", en: "Participation" },
 
-  "atlas.eyebrow": { el: "Ο Χάρτης μας", en: "Our Map" },
-  "atlas.title": { el: "Youthoria Atlas", en: "Youthoria Atlas" },
-  "atlas.body": {
-    el: "Χαρτογραφούμε ιστορίες σε ολόκληρο το Αιγαίο. Ταξιδεύουμε για να καταγράψουμε τη ζωή των νέων σε κάθε γωνιά της Ελλάδας.",
-    en: "Mapping stories across the Aegean. We travel to document the lives of young people in every corner of Greece.",
+  "reviews.eyebrow": { el: "Κριτικές", en: "Reviews" },
+  "reviews.heading": { el: "Τι λέει ο κόσμος για εμάς", en: "What people think about us" },
+  "reviews.body": {
+    el: "Διάβασε τι λένε οι ακροατές μας — και μοίρασε τη δική σου εμπειρία.",
+    en: "Read what our listeners say — and share your own experience.",
   },
-  "atlas.legend.available": { el: "Διαθέσιμο Επεισόδιο", en: "Episode Available" },
-  "atlas.legend.soon": { el: "Έρχεται Σύντομα", en: "Coming Soon" },
-  "atlas.explore": { el: "Εξερεύνησε τον Άτλα", en: "Explore the Atlas" },
-  "atlas.soon.title": { el: "Έρχεται σύντομα", en: "Coming soon" },
-  "atlas.soon.body": {
-    el: "Ο Άτλας του Youthoria χαρτογραφείται. Νέες ιστορίες από κάθε γωνιά της Ελλάδας φτάνουν σύντομα.",
-    en: "The Youthoria Atlas is being mapped. New stories from every corner of Greece are coming soon.",
+  "reviews.cta": { el: "Δες τις κριτικές", en: "See the reviews" },
+  "reviews.add": { el: "Πρόσθεσε κριτική", en: "Add a Review" },
+  "reviews.empty": {
+    el: "Δεν υπάρχουν ακόμη κριτικές. Γίνε ο πρώτος!",
+    en: "No reviews yet. Be the first to share one!",
   },
 
   "team.eyebrow": { el: "Οι Άνθρωποι", en: "The People" },
