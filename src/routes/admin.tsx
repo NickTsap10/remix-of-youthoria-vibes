@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { LogOut, Trash2 } from "lucide-react";
+import { LogOut, Trash2, Check, X, Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Tab = "episodes" | "atlas" | "marquee" | "messages";
+type Tab = "episodes" | "reviews" | "marquee" | "messages";
 
 function AdminPage() {
   const { user, loading, isAdmin, roleLoading } = useAuth();
@@ -62,7 +62,7 @@ function AdminPage() {
         </div>
 
         <div className="flex gap-2 border-b border-cream/10 mb-8">
-          {(["episodes", "atlas", "marquee", "messages"] as Tab[]).map((k) => (
+          {(["episodes", "reviews", "marquee", "messages"] as Tab[]).map((k) => (
             <button
               key={k}
               onClick={() => setTab(k)}
@@ -70,13 +70,13 @@ function AdminPage() {
                 tab === k ? "border-turquoise text-turquoise" : "border-transparent text-cream/50 hover:text-cream"
               }`}
             >
-              {k === "episodes" ? "Episodes" : k === "atlas" ? "Atlas Pins" : k === "marquee" ? "Ticker" : "Messages"}
+              {k === "episodes" ? "Episodes" : k === "reviews" ? "Reviews" : k === "marquee" ? "Ticker" : "Messages"}
             </button>
           ))}
         </div>
 
         {tab === "episodes" && <EpisodesTab />}
-        {tab === "atlas" && <AtlasTab />}
+        {tab === "reviews" && <ReviewsTab />}
         {tab === "marquee" && <MarqueeTab />}
         {tab === "messages" && <MessagesTab />}
       </div>
