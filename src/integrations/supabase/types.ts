@@ -16,33 +16,39 @@ export type Database = {
     Tables: {
       episodes: {
         Row: {
+          apple_url: string | null
           category: string | null
           created_at: string
           duration: string
+          google_url: string | null
           id: string
           image_url: string | null
           sort_order: number
-          spotify_url: string
+          spotify_url: string | null
           title: string
         }
         Insert: {
+          apple_url?: string | null
           category?: string | null
           created_at?: string
           duration: string
+          google_url?: string | null
           id?: string
           image_url?: string | null
           sort_order?: number
-          spotify_url: string
+          spotify_url?: string | null
           title: string
         }
         Update: {
+          apple_url?: string | null
           category?: string | null
           created_at?: string
           duration?: string
+          google_url?: string | null
           id?: string
           image_url?: string | null
           sort_order?: number
-          spotify_url?: string
+          spotify_url?: string | null
           title?: string
         }
         Relationships: []
