@@ -9,7 +9,7 @@ import { getAssetUrl } from "@/lib/assets";
 const links: { to: string; key: DictKey }[] = [
   { to: "/", key: "nav.home" },
   { to: "/episodes", key: "nav.episodes" },
-  { to: "/atlas", key: "nav.atlas" },
+  { to: "/reviews", key: "nav.reviews" },
   { to: "/team", key: "nav.team" },
   { to: "/about", key: "nav.about" },
   { to: "/contact", key: "nav.contact" },
