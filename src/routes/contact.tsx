@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -34,7 +34,7 @@ const schema = z.object({
 });
 
 function ContactPage() {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const isEl = lang === "el";
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -129,10 +129,17 @@ function ContactPage() {
                 className="input resize-none"
               />
             </Field>
+            <p className="text-xs text-cream/55 leading-relaxed">
+              {t("consent.contact.pre")}
+              <Link to="/privacy-policy" className="text-turquoise underline underline-offset-2">
+                {t("consent.link")}
+              </Link>
+              {t("consent.period")}
+            </p>
             <button
               type="submit"
               disabled={busy}
-              className="mt-2 inline-flex justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-8 py-4 text-sm font-bold uppercase tracking-widest disabled:opacity-60 hover:-translate-y-0.5 transition-transform"
+              className="inline-flex justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-8 py-4 text-sm font-bold uppercase tracking-widest disabled:opacity-60 hover:-translate-y-0.5 transition-transform"
             >
               {busy ? label("Αποστολή...", "Sending...") : label("Αποστολή", "Send")}
             </button>
