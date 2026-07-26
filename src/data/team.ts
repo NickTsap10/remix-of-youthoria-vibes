@@ -1,6 +1,5 @@
 import myronPhoto from "@/assets/team/myron.jpg.asset.json";
 import dimitrisPhoto from "@/assets/team/dimitris.jpg.asset.json";
-import ioannisPhoto from "@/assets/team/ioannis.jpg.asset.json";
 import thanasisPhoto from "@/assets/team/thanasis.jpg.asset.json";
 import mariaPhoto from "@/assets/team/maria.jpg.asset.json";
 import mariliaPhoto from "@/assets/team/marilia.jpg.asset.json";
@@ -30,12 +29,6 @@ export const team: Member[] = [
     },
     email: "dimitris@youthoria.gr",
     photo: getAssetUrl(dimitrisPhoto),
-  },
-  {
-    name: "Ioannis Ntinas",
-    role: { el: "Video & Reel Editor", en: "Video & Reel Editor" },
-    email: "ioannis@youthoria.gr",
-    photo: getAssetUrl(ioannisPhoto),
   },
   {
     name: "Thanasis Gkampis",
