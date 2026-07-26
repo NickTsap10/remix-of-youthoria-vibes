@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -20,6 +21,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EpisodesRoute = EpisodesRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/episodes': typeof EpisodesRoute
+  '/reviews': typeof ReviewsRoute
   '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
@@ -90,9 +99,18 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/reviews'
     | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/admin' | '/auth' | '/contact' | '/episodes' | '/team'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/auth'
+    | '/contact'
+    | '/episodes'
+    | '/reviews'
+    | '/team'
   id:
     | '__root__'
     | '/'
@@ -101,6 +119,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/episodes'
+    | '/reviews'
     | '/team'
   fileRoutesById: FileRoutesById
 }
@@ -111,6 +130,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EpisodesRoute: typeof EpisodesRoute
+  ReviewsRoute: typeof ReviewsRoute
   TeamRoute: typeof TeamRoute
 }
 
@@ -121,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/episodes': {
@@ -175,8 +202,19 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EpisodesRoute: EpisodesRoute,
+  ReviewsRoute: ReviewsRoute,
   TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
