@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "5e2b8c39-6652-4cf6-af43-24007d6244b0",
-  "project_id": "14d1222e-1db0-4912-9fe2-7966c5ee0a20",
-  "url": "/__l5e/assets-v1/5e2b8c39-6652-4cf6-af43-24007d6244b0/maria.jpg",
-  "r2_key": "a/v1/14d1222e-1db0-4912-9fe2-7966c5ee0a20/5e2b8c39-6652-4cf6-af43-24007d6244b0/maria.jpg",
-  "original_filename": "maria.jpg",
-  "size": 170352,
   "content_type": "image/png",
-  "created_at": "2026-07-02T11:26:24Z"
+  "created_at": "2026-07-02T11:26:24Z",
+  "original_filename": "maria.jpg",
+  "project_id": "92a4165a-c92b-43b7-a99c-4976d82c6142",
+  "r2_key": "a/v1/92a4165a-c92b-43b7-a99c-4976d82c6142/5e2b8c39-6652-4cf6-af43-24007d6244b0/maria.jpg",
+  "size": 170352,
+  "url": "/__l5e/assets-v1/5e2b8c39-6652-4cf6-af43-24007d6244b0/maria.jpg",
+  "version": 1
 }
