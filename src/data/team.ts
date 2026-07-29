@@ -1,9 +1,3 @@
-import myronPhoto from "@/assets/team/myron.jpg.asset.json";
-import dimitrisPhoto from "@/assets/team/dimitris.jpg.asset.json";
-import thanasisPhoto from "@/assets/team/thanasis.jpg.asset.json";
-import mariaPhoto from "@/assets/team/maria.jpg.asset.json";
-import mariliaPhoto from "@/assets/team/marilia.jpg.asset.json";
-import sotirisPhoto from "@/assets/team/sotiris.jpg.asset.json";
 import { getAssetUrl } from "@/lib/assets";
 
 export type Member = {
@@ -19,7 +13,7 @@ export const team: Member[] = [
     name: "Myron Plagiannakos",
     role: { el: "Founder, Content Producer & Director", en: "Founder, Content Producer & Director" },
     email: "myron@youthoria.gr",
-    photo: getAssetUrl(myronPhoto),
+    photo: getAssetUrl("/images/team/myron.jpg"),
   },
   {
     name: "Dimitris Alexandrou",
@@ -28,30 +22,30 @@ export const team: Member[] = [
       en: "General Manager & Head of Social Media and Public Relations",
     },
     email: "dimitris@youthoria.gr",
-    photo: getAssetUrl(dimitrisPhoto),
+    photo: getAssetUrl("/images/team/dimitris.jpg"),
   },
   {
     name: "Thanasis Gkampis",
     role: { el: "Community & Engagement ︱ Write Director", en: "Community & Engagement ︱ Write Director" },
     email: "thanasis@youthoria.gr",
-    photo: getAssetUrl(thanasisPhoto),
+    photo: getAssetUrl("/images/team/thanasis.jpg"),
   },
   {
     name: "Maria Tsigara",
     role: { el: "Community & Engagement ︱ Write Director", en: "Community & Engagement ︱ Write Director" },
     email: "maria@youthoria.gr",
-    photo: getAssetUrl(mariaPhoto),
+    photo: getAssetUrl("/images/team/maria.jpg"),
   },
   {
     name: "Marilia Skriapa",
     role: { el: "Community & Engagement Team", en: "Community & Engagement Team" },
     email: "info@youthoria.gr",
-    photo: getAssetUrl(mariliaPhoto),
+    photo: getAssetUrl("/images/team/marilia.jpg"),
   },
   {
     name: "Sotiris Euaggelinos",
     role: { el: "Community & Engagement Team", en: "Community & Engagement Team" },
     email: "info@youthoria.gr",
-    photo: getAssetUrl(sotirisPhoto),
+    photo: getAssetUrl("/images/team/sotiris.jpg"),
   },
 ];

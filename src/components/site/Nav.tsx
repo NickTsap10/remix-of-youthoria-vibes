@@ -2,7 +2,6 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, Heart } from "lucide-react";
 import { useI18n, type Lang, type DictKey } from "@/lib/i18n";
-import logoAsset from "@/assets/brand/youthoria-script.png.asset.json";
 import { SOCIALS } from "@/lib/socials";
 import { getAssetUrl } from "@/lib/assets";
 
@@ -50,7 +49,7 @@ export function Nav() {
       <div className="container-x flex h-20 md:h-24 items-center justify-between">
         <Link to="/" onClick={goHome} className="flex items-center gap-2 group" aria-label="Youthoria">
           <img
-            src={getAssetUrl(logoAsset)}
+            src={getAssetUrl("/images/brand/youthoria-script.png")}
             alt="Youthoria"
             className="h-14 md:h-20 w-auto object-contain drop-shadow-[0_0_18px_rgba(3,147,151,0.35)]"
           />
