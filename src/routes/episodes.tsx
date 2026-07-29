@@ -47,7 +47,9 @@ function EpisodesPage() {
         <StarField />
         <div className="container-x relative">
           <a
-            href="#"
+            href="https://youthoria-booking-studio.lovable.app/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mb-6 inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-widest shadow-lg shadow-turquoise/20 hover:-translate-y-0.5 transition-transform"
           >
             <CalendarCheck className="size-4" /> {t("episodes.book")}

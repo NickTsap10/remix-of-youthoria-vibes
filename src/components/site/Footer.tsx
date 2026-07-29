@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Music2, Mail, Heart } from "lucide-react";
+import { useState } from "react";
+import { Instagram, Music2, Mail, Heart, Apple, Podcast, ArrowUpRight, X, ChevronLeft } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { SOCIALS } from "@/lib/socials";
 
@@ -11,8 +12,99 @@ function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+const SHOWS = [
+  {
+    id: "other-side",
+    name: "Youthoria: The Other Side",
+    links: [
+      { name: "Spotify", Icon: Music2, url: "https://open.spotify.com/show/033tiqkThkFSNjscdrqC2Z?si=47308a2746514372" },
+      { name: "Apple Podcasts", Icon: Apple, url: "https://podcasts.apple.com/us/podcast/youthoria-%CE%B7-%CE%AC%CE%BB%CE%BB%CE%B7-%CF%80%CE%BB%CE%B5%CF%85%CF%81%CE%AC/id6794648907" },
+      { name: "Google Podcasts", Icon: Podcast, url: "https://www.youtube.com/playlist?list=PLHTUslFKcW8o" },
+    ],
+  },
+  {
+    id: "interviews",
+    name: "Youthoria Interviews",
+    links: [
+      { name: "Spotify", Icon: Music2, url: "https://open.spotify.com/show/033pMLLmvyCoexR9l5BG4B?si=c5bc90aa97a64099" },
+      { name: "Apple Podcasts", Icon: Apple, url: "https://podcasts.apple.com/us/podcast/youthoria-interviews/id6794648312" },
+      { name: "Google Podcasts", Icon: Podcast, url: "https://www.youtube.com/playlist?list=PLOO7QDceZXm0" },
+    ],
+  },
+] as const;
+
+function ListenDialog({ onClose }: { onClose: () => void }) {
+  const { t } = useI18n();
+  const [showId, setShowId] = useState<string | null>(null);
+  const show = SHOWS.find((s) => s.id === showId) ?? null;
+
+  return (
+    <div
+      className="fixed inset-0 z-50 grid place-items-center p-4 bg-midnight/80 backdrop-blur-sm animate-fade-up"
+      role="dialog"
+      aria-modal="true"
+      aria-label={t("footer.listenToUs")}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-md rounded-3xl border border-cream/10 bg-midnight p-6 sm:p-8"
+        onClick={(ev) => ev.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute top-4 right-4 size-9 rounded-full bg-cream/5 grid place-items-center text-cream/60 hover:text-cream"
+        >
+          <X className="size-4" />
+        </button>
+        <div className="label-eyebrow mb-2">{show ? "Listen on" : t("footer.chooseShow")}</div>
+        <h2 className="font-display text-2xl leading-tight text-balance pr-10">
+          {show ? show.name : t("footer.listenToUs")}
+        </h2>
+        <div className="mt-6 grid gap-3">
+          {!show &&
+            SHOWS.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => setShowId(s.id)}
+                className="flex items-center justify-between gap-3 rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest text-left hover:-translate-y-0.5 transition-transform"
+              >
+                <span>{s.name}</span>
+                <ArrowUpRight className="size-4 shrink-0" />
+              </button>
+            ))}
+          {show &&
+            show.links.map(({ name, url, Icon }) => (
+              <a
+                key={name}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between gap-3 rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+              >
+                <span className="flex items-center gap-3"><Icon className="size-4" /> {name}</span>
+                <ArrowUpRight className="size-4" />
+              </a>
+            ))}
+          {show && (
+            <button
+              type="button"
+              onClick={() => setShowId(null)}
+              className="mt-2 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-cream/60 hover:text-turquoise"
+            >
+              <ChevronLeft className="size-4" /> {t("footer.back")}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Footer() {
   const { t } = useI18n();
+  const [listenOpen, setListenOpen] = useState(false);
   return (
     <footer className="border-t border-cream/10 pt-20 pb-24">
       <div className="container-x mb-16 flex flex-col md:flex-row items-center justify-between gap-6 rounded-3xl border border-turquoise/30 bg-turquoise/[0.06] px-8 py-8">
@@ -41,9 +133,13 @@ export function Footer() {
         </div>
         <div>
           <h5 className="label-eyebrow mb-5">{t("footer.listen")}</h5>
-          <ul className="space-y-3 text-sm text-cream/70">
-            <li><a href={SOCIALS.spotifyShow} target="_blank" rel="noreferrer" className="hover:text-turquoise inline-flex items-center gap-2"><Music2 className="size-3.5" /> Spotify</a></li>
-          </ul>
+          <button
+            type="button"
+            onClick={() => setListenOpen(true)}
+            className="inline-flex items-center gap-2 rounded-full border border-turquoise/40 bg-turquoise/10 px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-turquoise hover:bg-turquoise hover:text-midnight transition-colors"
+          >
+            <Music2 className="size-3.5" /> {t("footer.listenToUs")}
+          </button>
         </div>
         <div>
           <h5 className="label-eyebrow mb-5">{t("footer.connect")}</h5>
@@ -69,6 +165,7 @@ export function Footer() {
         <span>© {new Date().getFullYear()} YOUTHORIA PODCAST — {t("footer.rights")}</span>
         <span>Created by Tsiaplias Nikos</span>
       </div>
+      {listenOpen && <ListenDialog onClose={() => setListenOpen(false)} />}
     </footer>
   );
 }
