@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { StarField } from "@/components/site/StarField";
 import { supabase } from "@/integrations/supabase/client";
+import { getAssetUrl } from "@/lib/assets";
 
 export const Route = createFileRoute("/episodes")({
   head: () => ({
@@ -69,7 +70,7 @@ function EpisodesPage() {
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] border border-ink/10 bg-stone/45 shadow-[var(--shadow-soft)] transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[var(--shadow-lift)]">
                   {e.image_url ? (
                     <img
-                      src={e.image_url}
+                      src={getAssetUrl(e.image_url)}
                       alt={e.title}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
