@@ -57,7 +57,7 @@ export function Nav() {
           aria-label="Youthoria"
         >
           <img
-            src={getAssetUrl("/images/brand/youthoria-script-slate.png")}
+            src={getAssetUrl("/images/brand/youthoria-script-slate.webp")}
             alt="Youthoria"
             className={`w-auto object-contain transition-all duration-700 group-hover:opacity-80 ${
               scrolled ? "h-9 md:h-11" : "h-11 md:h-14"

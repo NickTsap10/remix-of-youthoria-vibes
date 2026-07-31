@@ -63,8 +63,8 @@ function Index() {
               style={{ animationDelay: "200ms" }}
             >
               {lang === "el"
-                ? "Ένα premium podcast για αληθινές συζητήσεις, ανθρώπινες ιστορίες και ιδέες που αλλάζουν τη νέα γενιά."
-                : "A premium podcast for honest conversations, human stories and the ideas shaping a new generation."}
+                ? "Ένα podcast για αληθινές συζητήσεις, ανθρώπινες ιστορίες και ιδέες που αλλάζουν τη νέα γενιά."
+                : "A podcast for honest conversations, human stories and the ideas shaping a new generation."}
             </p>
 
             <div
@@ -124,7 +124,7 @@ function Index() {
               </p>
               <div className="mt-8 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-mist">
                 <img
-                  src={getAssetUrl("/images/brand/youthoria-script-slate.png")}
+                  src={getAssetUrl("/images/brand/youthoria-script-slate.webp")}
                   alt=""
                   aria-hidden
                   className="h-6 w-auto opacity-60"
