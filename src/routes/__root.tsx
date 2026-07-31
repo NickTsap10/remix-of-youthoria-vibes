@@ -142,7 +142,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
-        <div className="min-h-screen flex flex-col bg-midnight text-cream">
+        <div className="min-h-screen flex flex-col bg-sand text-ink">
           <Nav />
           <main className="flex-1">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}

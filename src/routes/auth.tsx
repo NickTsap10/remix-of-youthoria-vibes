@@ -41,22 +41,22 @@ function AuthPage() {
         <StarField />
         <div className="container-x relative max-w-md mx-auto">
           <h1 className="font-display text-5xl text-center mb-2">Admin Access</h1>
-          <p className="text-center text-cream/60 mb-8 text-sm">
+          <p className="text-center text-ink/60 mb-8 text-sm">
             Restricted area — only Youthoria team.
           </p>
-          <form onSubmit={submit} className="grid gap-4 rounded-3xl border border-cream/10 bg-cream/[0.02] p-8">
+          <form onSubmit={submit} className="grid gap-4 rounded-3xl border border-ink/10 bg-ink/[0.02] p-8">
             <label className="block">
-              <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">Email</span>
+              <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">Email</span>
               <input required type="email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
             <label className="block">
-              <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">Password</span>
+              <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">Password</span>
               <input required type="password" minLength={6} className="input" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button disabled={busy} className="mt-2 rounded-full bg-turquoise text-midnight py-3 font-bold uppercase tracking-widest text-sm disabled:opacity-60">
+            <button disabled={busy} className="mt-2 rounded-full bg-slate text-sand py-3 font-bold uppercase tracking-widest text-sm disabled:opacity-60">
               {busy ? "..." : "Sign In"}
             </button>
-            <p className="text-[10px] text-center text-cream/40 mt-2 uppercase tracking-widest">
+            <p className="text-[10px] text-center text-ink/40 mt-2 uppercase tracking-widest">
               Private area — registrations are closed.
             </p>
           </form>

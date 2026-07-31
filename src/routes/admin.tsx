@@ -30,8 +30,8 @@ function AdminPage() {
     return (
       <div className="pt-32 pb-24 container-x max-w-md text-center mx-auto">
         <h1 className="font-display text-6xl">403</h1>
-        <p className="mt-4 text-cream/70">Access denied. This area is restricted to Youthoria admins.</p>
-        <p className="mt-2 text-xs text-cream/40 break-all">Signed in as {user.email}</p>
+        <p className="mt-4 text-ink/70">Access denied. This area is restricted to Youthoria admins.</p>
+        <p className="mt-2 text-xs text-ink/40 break-all">Signed in as {user.email}</p>
         <div className="mt-6 flex gap-3 justify-center">
           <button
             onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/auth" }); }}
@@ -61,13 +61,13 @@ function AdminPage() {
           </button>
         </div>
 
-        <div className="flex gap-2 border-b border-cream/10 mb-8">
+        <div className="flex gap-2 border-b border-ink/10 mb-8">
           {(["episodes", "reviews", "marquee", "messages"] as Tab[]).map((k) => (
             <button
               key={k}
               onClick={() => setTab(k)}
               className={`px-4 py-3 text-sm font-semibold uppercase tracking-widest transition-colors border-b-2 -mb-px ${
-                tab === k ? "border-turquoise text-turquoise" : "border-transparent text-cream/50 hover:text-cream"
+                tab === k ? "border-slate text-slate" : "border-transparent text-ink/50 hover:text-ink"
               }`}
             >
               {k === "episodes" ? "Episodes" : k === "reviews" ? "Reviews" : k === "marquee" ? "Ticker" : "Messages"}
@@ -107,29 +107,29 @@ function MessagesTab() {
     qc.invalidateQueries({ queryKey: ["admin-messages"] });
   }
 
-  if (isLoading) return <div className="text-cream/60">Loading messages…</div>;
+  if (isLoading) return <div className="text-ink/60">Loading messages…</div>;
 
   return (
     <div className="max-w-4xl">
       <h2 className="font-display text-2xl mb-6">Contact messages ({data.length})</h2>
       {data.length === 0 ? (
-        <div className="text-cream/50 rounded-2xl border border-cream/10 bg-cream/[0.02] p-6">
+        <div className="text-ink/50 rounded-2xl border border-ink/10 bg-ink/[0.02] p-6">
           No messages yet.
         </div>
       ) : (
         <div className="grid gap-4">
           {data.map((m: any) => (
-            <article key={m.id} className="rounded-2xl border border-cream/10 bg-cream/[0.02] p-5">
+            <article key={m.id} className="rounded-2xl border border-ink/10 bg-ink/[0.02] p-5">
               <header className="flex items-start justify-between gap-4 mb-3">
                 <div className="min-w-0">
                   <div className="font-medium truncate">{m.name}</div>
-                  <div className="text-xs text-cream/60 truncate">
-                    <a href={`mailto:${m.email}`} className="hover:text-turquoise">{m.email}</a>
+                  <div className="text-xs text-ink/60 truncate">
+                    <a href={`mailto:${m.email}`} className="hover:text-slate">{m.email}</a>
                     {m.phone && <span> · {m.phone}</span>}
                   </div>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
-                  <time className="text-[10px] uppercase tracking-widest text-cream/40">
+                  <time className="text-[10px] uppercase tracking-widest text-ink/40">
                     {new Date(m.created_at).toLocaleString()}
                   </time>
                   <button onClick={() => del(m.id)} className="text-red-400 hover:text-red-300">
@@ -137,7 +137,7 @@ function MessagesTab() {
                   </button>
                 </div>
               </header>
-              <p className="text-sm text-cream/80 whitespace-pre-wrap">{m.message}</p>
+              <p className="text-sm text-ink/80 whitespace-pre-wrap">{m.message}</p>
             </article>
           ))}
         </div>
@@ -204,7 +204,7 @@ function EpisodesTab() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-8">
-      <form onSubmit={add} className="rounded-3xl border border-cream/10 bg-cream/[0.02] p-6 grid gap-4 h-fit">
+      <form onSubmit={add} className="rounded-3xl border border-ink/10 bg-ink/[0.02] p-6 grid gap-4 h-fit">
         <h2 className="font-display text-2xl">New episode</h2>
         <FormField label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} required />
         <FormField label="Duration (e.g. 48 MIN)" value={form.duration} onChange={(v) => setForm({ ...form, duration: v })} required />
@@ -221,14 +221,14 @@ function EpisodesTab() {
       <div className="grid gap-3">
         <h2 className="font-display text-2xl">Existing ({data.length})</h2>
         {data.map((e: any) => (
-          <div key={e.id} className="flex items-center justify-between gap-4 rounded-2xl border border-cream/10 bg-cream/[0.02] p-4">
+          <div key={e.id} className="flex items-center justify-between gap-4 rounded-2xl border border-ink/10 bg-ink/[0.02] p-4">
             <div className="min-w-0">
-              <div className="text-[10px] uppercase tracking-widest text-turquoise">{e.category ?? "—"} · {e.duration}</div>
+              <div className="text-[10px] uppercase tracking-widest text-slate">{e.category ?? "—"} · {e.duration}</div>
               <div className="font-medium truncate">{e.title}</div>
-              <div className="text-xs text-cream/40 flex flex-wrap gap-x-3">
+              <div className="text-xs text-ink/40 flex flex-wrap gap-x-3">
                 {[["Spotify", e.spotify_url], ["Google", e.google_url], ["Apple", e.apple_url]].map(([label, url]: any) =>
                   url ? (
-                    <a key={label} href={url} target="_blank" rel="noreferrer" className="hover:text-turquoise">{label}</a>
+                    <a key={label} href={url} target="_blank" rel="noreferrer" className="hover:text-slate">{label}</a>
                   ) : (
                     <span key={label} className="opacity-40 line-through">{label}</span>
                   )
@@ -275,7 +275,7 @@ function ReviewsTab() {
 
   const rows = data.filter((r: any) => r.status === filter);
 
-  if (isLoading) return <div className="text-cream/60">Loading reviews…</div>;
+  if (isLoading) return <div className="text-ink/60">Loading reviews…</div>;
 
   return (
     <div className="max-w-4xl">
@@ -285,7 +285,7 @@ function ReviewsTab() {
             key={s}
             onClick={() => setFilter(s)}
             className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${
-              filter === s ? "bg-turquoise text-midnight" : "bg-cream/5 text-cream/60 hover:text-cream"
+              filter === s ? "bg-slate text-sand" : "bg-ink/5 text-ink/60 hover:text-ink"
             }`}
           >
             {s} ({data.filter((r: any) => r.status === s).length})
@@ -294,33 +294,33 @@ function ReviewsTab() {
       </div>
 
       {rows.length === 0 ? (
-        <div className="text-cream/50 rounded-2xl border border-cream/10 bg-cream/[0.02] p-6">
+        <div className="text-ink/50 rounded-2xl border border-ink/10 bg-ink/[0.02] p-6">
           No {filter} reviews.
         </div>
       ) : (
         <div className="grid gap-4">
           {rows.map((r: any) => (
-            <article key={r.id} className="rounded-2xl border border-cream/10 bg-cream/[0.02] p-5">
+            <article key={r.id} className="rounded-2xl border border-ink/10 bg-ink/[0.02] p-5">
               <header className="flex flex-wrap items-start justify-between gap-3 mb-3">
                 <div className="min-w-0">
                   <div className="font-medium truncate">{r.first_name} {r.last_name}</div>
                   <div className="flex items-center gap-0.5 mt-1">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className={`size-3.5 ${i < r.rating ? "fill-turquoise text-turquoise" : "text-cream/25"}`} />
+                      <Star key={i} className={`size-3.5 ${i < r.rating ? "fill-slate text-slate" : "text-ink/25"}`} />
                     ))}
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <time className="text-[10px] uppercase tracking-widest text-cream/40">
+                  <time className="text-[10px] uppercase tracking-widest text-ink/40">
                     {new Date(r.created_at).toLocaleDateString()}
                   </time>
                   {r.status !== "approved" && (
-                    <button onClick={() => setStatus(r.id, "approved")} className="p-2 rounded-full bg-turquoise/15 text-turquoise hover:bg-turquoise/25" aria-label="Approve">
+                    <button onClick={() => setStatus(r.id, "approved")} className="p-2 rounded-full bg-slate/15 text-slate hover:bg-slate/25" aria-label="Approve">
                       <Check className="size-4" />
                     </button>
                   )}
                   {r.status !== "rejected" && (
-                    <button onClick={() => setStatus(r.id, "rejected")} className="p-2 rounded-full bg-cream/5 text-cream/60 hover:text-cream" aria-label="Reject">
+                    <button onClick={() => setStatus(r.id, "rejected")} className="p-2 rounded-full bg-ink/5 text-ink/60 hover:text-ink" aria-label="Reject">
                       <X className="size-4" />
                     </button>
                   )}
@@ -329,7 +329,7 @@ function ReviewsTab() {
                   </button>
                 </div>
               </header>
-              <p className="text-sm text-cream/80 whitespace-pre-wrap">{r.description}</p>
+              <p className="text-sm text-ink/80 whitespace-pre-wrap">{r.description}</p>
             </article>
           ))}
         </div>
@@ -380,7 +380,7 @@ function MarqueeTab() {
 
   return (
     <div className="max-w-2xl">
-      <form onSubmit={add} className="rounded-3xl border border-cream/10 bg-cream/[0.02] p-6 grid gap-4 mb-8">
+      <form onSubmit={add} className="rounded-3xl border border-ink/10 bg-ink/[0.02] p-6 grid gap-4 mb-8">
         <h2 className="font-display text-2xl">Add ticker line</h2>
         <input className="input" placeholder="e.g. Follow us @youthoria.podcast" value={newText} onChange={(e) => setNewText(e.target.value)} />
         <button className="btn-primary justify-center">Add</button>
@@ -400,12 +400,12 @@ function MarqueeRow({ row, onSave, onDelete }: { row: any; onSave: (id: string, 
   const [text, setText] = useState(row.text_content);
   const dirty = text !== row.text_content;
   return (
-    <div className="flex items-center gap-2 rounded-2xl border border-cream/10 bg-cream/[0.02] p-3">
+    <div className="flex items-center gap-2 rounded-2xl border border-ink/10 bg-ink/[0.02] p-3">
       <input className="input flex-1" value={text} onChange={(e) => setText(e.target.value)} />
       <button
         disabled={!dirty}
         onClick={() => onSave(row.id, text)}
-        className="px-4 py-2 rounded-full bg-turquoise text-midnight text-xs font-bold uppercase tracking-widest disabled:opacity-40"
+        className="px-4 py-2 rounded-full bg-slate text-sand text-xs font-bold uppercase tracking-widest disabled:opacity-40"
       >
         Save
       </button>
@@ -417,7 +417,7 @@ function MarqueeRow({ row, onSave, onDelete }: { row: any; onSave: (id: string, 
 function FormField({ label, value, onChange, required }: { label: string; value: string; onChange: (v: string) => void; required?: boolean }) {
   return (
     <label className="block">
-      <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">{label}</span>
+      <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">{label}</span>
       <input className="input" value={value} onChange={(e) => onChange(e.target.value)} required={required} />
     </label>
   );
