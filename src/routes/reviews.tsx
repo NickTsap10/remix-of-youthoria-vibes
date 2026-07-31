@@ -61,20 +61,20 @@ function ReviewsPage() {
 
       <section className="container-x mt-12">
         {isLoading ? (
-          <div className="text-cream/60">Loading…</div>
+          <div className="text-ink/60">Loading…</div>
         ) : reviews.length === 0 ? (
-          <div className="rounded-2xl border border-cream/10 bg-cream/[0.02] p-6 text-cream/60 text-sm">
+          <div className="rounded-2xl border border-ink/10 bg-ink/[0.02] p-6 text-ink/60 text-sm">
             {t("reviews.empty")}
           </div>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {reviews.map((r: any) => (
-              <article key={r.id} className="rounded-3xl border border-cream/10 bg-cream/[0.02] p-6 flex flex-col gap-3">
+              <article key={r.id} className="rounded-3xl border border-ink/10 bg-ink/[0.02] p-6 flex flex-col gap-3">
                 <Stars value={r.rating} />
-                <p className="text-sm text-cream/80 leading-relaxed whitespace-pre-wrap flex-1">{r.description}</p>
-                <footer className="pt-2 border-t border-cream/10">
+                <p className="text-sm text-ink/80 leading-relaxed whitespace-pre-wrap flex-1">{r.description}</p>
+                <footer className="pt-2 border-t border-ink/10">
                   <div className="font-medium text-sm">{r.first_name} {r.last_name}</div>
-                  <time className="text-[10px] uppercase tracking-widest text-cream/40">
+                  <time className="text-[10px] uppercase tracking-widest text-ink/40">
                     {new Date(r.created_at).toLocaleDateString()}
                   </time>
                 </footer>
@@ -93,7 +93,7 @@ function Stars({ value }: { value: number }) {
   return (
     <div className="flex items-center gap-0.5" aria-label={`${value} out of 5 stars`}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className={`size-4 ${i < value ? "fill-turquoise text-turquoise" : "text-cream/25"}`} />
+        <Star key={i} className={`size-4 ${i < value ? "fill-slate text-slate" : "text-ink/25"}`} />
       ))}
     </div>
   );
@@ -123,7 +123,7 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] grid place-items-center bg-midnight/80 backdrop-blur-sm p-4 overflow-y-auto"
+      className="fixed inset-0 z-[100] grid place-items-center bg-sand/80 backdrop-blur-sm p-4 overflow-y-auto"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
@@ -131,11 +131,11 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
       <form
         onSubmit={submit}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg rounded-3xl border border-cream/10 bg-midnight p-6 sm:p-8 grid gap-4 my-8"
+        className="w-full max-w-lg rounded-3xl border border-ink/10 bg-sand p-6 sm:p-8 grid gap-4 my-8"
       >
         <div className="flex items-start justify-between gap-4">
           <h2 className="font-display text-3xl">Add a Review</h2>
-          <button type="button" onClick={onClose} aria-label="Close" className="text-cream/60 hover:text-cream">
+          <button type="button" onClick={onClose} aria-label="Close" className="text-ink/60 hover:text-ink">
             <X className="size-5" />
           </button>
         </div>
@@ -146,18 +146,18 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
         </div>
 
         <div>
-          <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">Rating</span>
+          <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">Rating</span>
           <div className="flex items-center gap-1.5">
             {[1, 2, 3, 4, 5].map((n) => (
               <button key={n} type="button" onClick={() => setRating(n)} aria-label={`${n} stars`}>
-                <Star className={`size-7 transition-transform hover:scale-110 ${n <= rating ? "fill-turquoise text-turquoise" : "text-cream/25"}`} />
+                <Star className={`size-7 transition-transform hover:scale-110 ${n <= rating ? "fill-slate text-slate" : "text-ink/25"}`} />
               </button>
             ))}
           </div>
         </div>
 
         <label className="block">
-          <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">Your review</span>
+          <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">Your review</span>
           <textarea
             rows={5}
             maxLength={1000}
@@ -167,17 +167,17 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
           />
         </label>
 
-        <label className="flex items-start gap-3 text-xs text-cream/60 leading-relaxed">
+        <label className="flex items-start gap-3 text-xs text-ink/60 leading-relaxed">
           <input
             type="checkbox"
             required
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
-            className="mt-0.5 size-4 shrink-0 accent-turquoise"
+            className="mt-0.5 size-4 shrink-0 accent-slate"
           />
           <span>
             {t("consent.review.pre")}
-            <Link to="/privacy-policy" className="text-turquoise underline underline-offset-2">
+            <Link to="/privacy-policy" className="text-slate underline underline-offset-2">
               {t("consent.link")}
             </Link>
             {t("consent.period")}
@@ -187,7 +187,7 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
         <button disabled={saving} className="btn-primary justify-center disabled:opacity-50">
           {saving ? "Submitting…" : "Submit review"}
         </button>
-        <p className="text-xs text-cream/45 text-center">Reviews appear after approval by our team.</p>
+        <p className="text-xs text-ink/45 text-center">Reviews appear after approval by our team.</p>
       </form>
     </div>
   );
@@ -196,7 +196,7 @@ function ReviewModal({ onClose }: { onClose: () => void }) {
 function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
     <label className="block">
-      <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">{label}</span>
+      <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">{label}</span>
       <input className="input" value={value} maxLength={60} onChange={(e) => onChange(e.target.value)} />
     </label>
   );

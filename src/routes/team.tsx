@@ -32,7 +32,7 @@ function TeamPage() {
         {team.map((m, i) => (
           <article
             key={m.name}
-            className="animate-fade-up rounded-3xl border border-cream/10 bg-cream/[0.02] p-6 md:p-8 hover:border-turquoise/40 hover:bg-turquoise/5 transition-all"
+            className="animate-fade-up rounded-3xl border border-ink/10 bg-ink/[0.02] p-6 md:p-8 hover:border-slate/40 hover:bg-slate/5 transition-all"
             style={{ animationDelay: `${i * 80}ms` }}
           >
             <div className="flex items-start gap-6">
@@ -40,19 +40,19 @@ function TeamPage() {
                 src={m.photo}
                 alt={m.name}
                 loading="lazy"
-                className="size-28 md:size-32 shrink-0 rounded-2xl object-cover ring-1 ring-cream/10"
+                className="size-28 md:size-32 shrink-0 rounded-2xl object-cover ring-1 ring-ink/10"
               />
               <div className="min-w-0 flex-1">
                 <h3 className="font-display text-2xl md:text-3xl leading-tight">{m.name}</h3>
-                <p className="text-xs text-turquoise font-semibold uppercase tracking-widest mt-2">
+                <p className="text-xs text-slate font-semibold uppercase tracking-widest mt-2">
                   {m.role[lang]}
                 </p>
                 {m.bio ? (
-                  <p className="mt-4 text-cream/70 text-sm leading-relaxed">{m.bio[lang]}</p>
+                  <p className="mt-4 text-ink/70 text-sm leading-relaxed">{m.bio[lang]}</p>
                 ) : null}
                 <a
                   href={`mailto:${m.email}`}
-                  className="mt-5 inline-flex items-center gap-2 text-xs text-cream/60 hover:text-turquoise"
+                  className="mt-5 inline-flex items-center gap-2 text-xs text-ink/60 hover:text-slate"
                 >
                   <Mail className="size-3.5" /> {m.email}
                 </a>
