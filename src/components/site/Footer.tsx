@@ -40,20 +40,20 @@ function ListenDialog({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center p-4 bg-midnight/80 backdrop-blur-sm animate-fade-up"
+      className="fixed inset-0 z-50 grid place-items-center p-4 bg-ink/50 backdrop-blur-md animate-fade-up"
       role="dialog"
       aria-modal="true"
       aria-label={t("footer.listenToUs")}
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-3xl border border-cream/10 bg-midnight p-6 sm:p-8"
+        className="relative w-full max-w-md rounded-[1.5rem] border border-ink/10 bg-sand p-6 sm:p-8 shadow-[var(--shadow-lift)]"
         onClick={(ev) => ev.stopPropagation()}
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-4 right-4 size-9 rounded-full bg-cream/5 grid place-items-center text-cream/60 hover:text-cream"
+          className="absolute top-4 right-4 size-9 rounded-full bg-ink/5 grid place-items-center text-ink/60 hover:text-ink transition-colors"
         >
           <X className="size-4" />
         </button>
@@ -68,7 +68,7 @@ function ListenDialog({ onClose }: { onClose: () => void }) {
                 key={s.id}
                 type="button"
                 onClick={() => setShowId(s.id)}
-                className="flex items-center justify-between gap-3 rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest text-left hover:-translate-y-0.5 transition-transform"
+                className="flex items-center justify-between gap-3 rounded-2xl bg-slate text-sand px-5 py-4 text-xs font-medium uppercase tracking-[0.14em] text-left transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
               >
                 <span>{s.name}</span>
                 <ArrowUpRight className="size-4 shrink-0" />
@@ -81,7 +81,7 @@ function ListenDialog({ onClose }: { onClose: () => void }) {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+                className="flex items-center justify-between gap-3 rounded-2xl bg-slate text-sand px-5 py-4 text-xs font-medium uppercase tracking-[0.14em] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
               >
                 <span className="flex items-center gap-3"><Icon className="size-4" /> {name}</span>
                 <ArrowUpRight className="size-4" />
@@ -91,7 +91,7 @@ function ListenDialog({ onClose }: { onClose: () => void }) {
             <button
               type="button"
               onClick={() => setShowId(null)}
-              className="mt-2 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-cream/60 hover:text-turquoise"
+              className="mt-2 inline-flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-mist hover:text-ink transition-colors"
             >
               <ChevronLeft className="size-4" /> {t("footer.back")}
             </button>
