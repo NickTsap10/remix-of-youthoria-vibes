@@ -22,8 +22,10 @@ export const Route = createFileRoute("/episodes")({
 function EpisodesPage() {
   const { t } = useI18n();
   const [selected, setSelected] = useState<any | null>(null);
-  const { data: episodes = [] } = useQuery({
+  const { data: episodes = [], isLoading, isError } = useQuery({
     queryKey: ["episodes"],
+    staleTime: 60_000,
+    retry: 1,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("episodes")
@@ -101,7 +103,23 @@ function EpisodesPage() {
             </button>
           ))}
         </div>
-        {episodes.length === 0 && (
+        {isLoading && (
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-[4/3] rounded-[1.25rem] bg-stone/50" />
+                <div className="mt-5 h-3 w-24 rounded bg-stone/50" />
+                <div className="mt-3 h-6 w-3/4 rounded bg-stone/50" />
+              </div>
+            ))}
+          </div>
+        )}
+        {isError && (
+          <div className="text-center text-mist py-24">
+            Couldn't load episodes right now. Please refresh the page.
+          </div>
+        )}
+        {!isLoading && !isError && episodes.length === 0 && (
           <div className="text-center text-mist py-24">No episodes yet.</div>
         )}
       </section>
