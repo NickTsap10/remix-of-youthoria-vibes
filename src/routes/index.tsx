@@ -27,12 +27,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const PILLARS = [
-  { k: "01", el: "Αυθεντικές φωνές", en: "Authentic voices" },
-  { k: "02", el: "Ουσιαστικός διάλογος", en: "Meaningful dialogue" },
-  { k: "03", el: "Ιδέες που κινούν", en: "Ideas that move" },
-];
-
 function Index() {
   const { t, lang } = useI18n();
 
@@ -79,17 +73,6 @@ function Index() {
               </Link>
             </div>
           </div>
-
-          <div className="mt-20 md:mt-28 grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
-            {PILLARS.map((p, i) => (
-              <Reveal key={p.k} delay={i * 120} className="bg-sand/60 backdrop-blur px-7 py-9">
-                <div className="text-[10px] font-medium tracking-[0.3em] text-mist">{p.k}</div>
-                <div className="mt-4 font-display text-2xl md:text-3xl leading-tight text-ink">
-                  {lang === "el" ? p.el : p.en}
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -127,6 +110,10 @@ function Index() {
                   src={getAssetUrl("/images/brand/youthoria-script-slate.webp")}
                   alt=""
                   aria-hidden
+                  loading="lazy"
+                  decoding="async"
+                  width={1000}
+                  height={481}
                   className="h-6 w-auto opacity-60"
                 />
                 <span>{lang === "el" ? "Ακροατές" : "Listeners"}</span>
@@ -157,6 +144,9 @@ function Index() {
                       src={m.photo}
                       alt={m.name}
                       loading="lazy"
+                      decoding="async"
+                      width={380}
+                      height={506}
                       className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
