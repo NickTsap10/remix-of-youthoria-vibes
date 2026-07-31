@@ -33,16 +33,8 @@ function EpisodesPage() {
       return data;
     },
   });
-  const gradients = [
-    "from-turquoise/50 via-turquoise/10 to-midnight",
-    "from-cream/25 via-cream/5 to-midnight",
-    "from-turquoise/35 via-midnight to-midnight",
-    "from-cream/15 via-turquoise/15 to-midnight",
-    "from-turquoise/40 via-cream/10 to-midnight",
-    "from-cream/20 via-turquoise/20 to-midnight",
-  ];
   return (
-    <div className="pt-32 pb-24">
+    <div className="pt-36 md:pt-44 pb-28">
       <section className="relative">
         <StarField />
         <div className="container-x relative">
@@ -50,62 +42,66 @@ function EpisodesPage() {
             href="https://youthoria-booking-studio.lovable.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mb-6 inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-widest shadow-lg shadow-turquoise/20 hover:-translate-y-0.5 transition-transform"
+            className="mb-8 inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-slate text-sand px-7 py-3.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
           >
             <CalendarCheck className="size-4" /> {t("episodes.book")}
           </a>
           <div className="label-eyebrow mb-4">{t("episodes.eyebrow")}</div>
-          <h1 className="font-display text-5xl md:text-7xl leading-[0.95] max-w-3xl text-balance">
+          <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.95] max-w-3xl text-balance text-ink">
             {t("episodes.title")}
           </h1>
-          <p className="mt-6 text-cream/70 max-w-[52ch] text-pretty">
+          <p className="mt-7 text-lg text-ink/65 max-w-[52ch] leading-relaxed text-pretty">
             {t("episodes.subtitle")}
           </p>
         </div>
       </section>
 
-      <section className="container-x mt-16">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {episodes.map((e: any, i: number) => {
-            const g = gradients[i % gradients.length];
-            return (
-              <button
+      <section className="container-x mt-20">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {episodes.map((e: any, i: number) => (
+            <button
                 key={e.id}
                 type="button"
                 onClick={() => setSelected(e)}
-                className="group relative block w-full text-left rounded-3xl overflow-hidden ring-1 ring-cream/10 hover:ring-turquoise/50 transition-all duration-500 hover:-translate-y-1 animate-fade-up"
-                style={{ animationDelay: `${i * 60}ms` }}
+                className="group block w-full text-left animate-fade-up"
+                style={{ animationDelay: `${i * 70}ms` }}
               >
-                <div className={`relative aspect-square bg-gradient-to-br ${g} bg-cover bg-center`}
-                  style={e.image_url ? { backgroundImage: `linear-gradient(180deg, rgba(12,49,107,0.35), rgba(12,49,107,0.85)), url(${e.image_url})` } : undefined}
-                >
-                  <div className="absolute inset-0 grid place-items-center text-center p-8">
-                    <div>
-                      <div className="text-turquoise text-4xl mb-4 animate-star inline-block">✦</div>
-                      <div className="font-display text-2xl md:text-[1.6rem] leading-tight text-balance text-cream">
-                        {e.title}
-                      </div>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] border border-ink/10 bg-stone/45 shadow-[var(--shadow-soft)] transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[var(--shadow-lift)]">
+                  {e.image_url ? (
+                    <img
+                      src={e.image_url}
+                      alt={e.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                    />
+                  ) : (
+                    <div className="grid h-full w-full place-items-center bg-gradient-to-br from-white/60 via-stone/40 to-stone/70">
+                      <span className="animate-star text-4xl text-slate/50">✦</span>
                     </div>
-                  </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   {e.category && (
-                    <div className="absolute top-4 left-4 text-[10px] uppercase tracking-widest text-turquoise font-bold px-2.5 py-1 rounded-full bg-midnight/60 backdrop-blur">
+                    <div className="absolute left-4 top-4 rounded-full bg-sand/85 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-ink/70 backdrop-blur">
                       {e.category}
                     </div>
                   )}
-                  <div className="absolute top-4 right-4 size-9 rounded-full bg-midnight/50 backdrop-blur grid place-items-center text-cream/70 group-hover:bg-turquoise group-hover:text-midnight transition-colors">
+                  <span className="absolute bottom-4 right-4 grid size-10 place-items-center rounded-full bg-sand/90 text-ink opacity-0 translate-y-2 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                     <ArrowUpRight className="size-4" />
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[10px] uppercase tracking-widest text-cream/50">
-                    <span>{e.duration}</span>
-                    <span>Listen</span>
-                  </div>
+                  </span>
                 </div>
-              </button>
-            );
-          })}
+                <div className="mt-5 flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.18em] text-mist">
+                  <span>{e.duration}</span>
+                  <span className="h-px w-6 bg-ink/20" />
+                  <span>Listen</span>
+                </div>
+                <h2 className="mt-3 font-display text-2xl md:text-[1.7rem] leading-tight text-ink text-balance transition-colors duration-300 group-hover:text-slate">
+                  {e.title}
+                </h2>
+            </button>
+          ))}
         </div>
         {episodes.length === 0 && (
-          <div className="text-center text-cream/50 py-20">No episodes yet.</div>
+          <div className="text-center text-mist py-24">No episodes yet.</div>
         )}
       </section>
 
@@ -127,25 +123,25 @@ function PlatformDialog({ episode, onClose }: { episode: any; onClose: () => voi
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center p-4 bg-midnight/80 backdrop-blur-sm animate-fade-up"
+      className="fixed inset-0 z-50 grid place-items-center p-4 bg-ink/50 backdrop-blur-md animate-fade-up"
       role="dialog"
       aria-modal="true"
       aria-label={`Listen to ${episode.title}`}
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-3xl border border-cream/10 bg-midnight p-6 sm:p-8"
+        className="relative w-full max-w-md rounded-[1.5rem] border border-ink/10 bg-sand p-6 sm:p-8 shadow-[var(--shadow-lift)]"
         onClick={(ev) => ev.stopPropagation()}
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-4 right-4 size-9 rounded-full bg-cream/5 grid place-items-center text-cream/60 hover:text-cream"
+          className="absolute top-4 right-4 size-9 rounded-full bg-ink/5 grid place-items-center text-ink/60 hover:text-ink transition-colors"
         >
           <X className="size-4" />
         </button>
         <div className="label-eyebrow mb-2">Listen on</div>
-        <h2 className="font-display text-2xl leading-tight text-balance pr-10">{episode.title}</h2>
+        <h3 className="font-display text-2xl leading-tight text-balance pr-10 text-ink">{episode.title}</h3>
         <div className="mt-6 grid gap-3">
           {platforms.map(({ name, url, Icon }) =>
             url ? (
@@ -154,7 +150,7 @@ function PlatformDialog({ episode, onClose }: { episode: any; onClose: () => voi
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between gap-3 rounded-2xl bg-turquoise text-midnight px-5 py-4 text-sm font-bold uppercase tracking-widest hover:-translate-y-0.5 transition-transform"
+                className="flex items-center justify-between gap-3 rounded-2xl bg-slate text-sand px-5 py-4 text-xs font-medium uppercase tracking-[0.14em] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
               >
                 <span className="flex items-center gap-3"><Icon className="size-4" /> {name}</span>
                 <ArrowUpRight className="size-4" />
@@ -164,7 +160,7 @@ function PlatformDialog({ episode, onClose }: { episode: any; onClose: () => voi
                 key={name}
                 aria-disabled="true"
                 title="Not available for this episode"
-                className="flex items-center justify-between gap-3 rounded-2xl bg-cream/5 text-cream/35 px-5 py-4 text-sm font-bold uppercase tracking-widest cursor-not-allowed"
+                className="flex items-center justify-between gap-3 rounded-2xl bg-ink/5 text-ink/35 px-5 py-4 text-xs font-medium uppercase tracking-[0.14em] cursor-not-allowed"
               >
                 <span className="flex items-center gap-3"><Icon className="size-4" /> {name}</span>
                 <span className="text-[10px] tracking-widest">Unavailable</span>

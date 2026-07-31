@@ -76,14 +76,14 @@ function ContactPage() {
         <StarField />
         <div className="container-x relative max-w-2xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cream/15 bg-cream/[0.03] text-[11px] font-semibold uppercase tracking-[0.28em] text-cream/70">
-              <span className="size-1.5 rounded-full bg-turquoise animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-ink/15 bg-ink/[0.03] text-[11px] font-semibold uppercase tracking-[0.28em] text-ink/70">
+              <span className="size-1.5 rounded-full bg-slate animate-pulse" />
               {label("Επικοινωνία", "Get in touch")}
             </div>
             <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[0.95] text-balance">
               {label("Επικοινωνήστε με την ομάδα μας", "Contact Our Team")}
             </h1>
-            <p className="mt-6 text-cream/70 leading-relaxed">
+            <p className="mt-6 text-ink/70 leading-relaxed">
               {label(
                 "Στείλτε μας ένα μήνυμα. Θα σας απαντήσουμε σύντομα.",
                 "Send us a message and we'll get back to you soon.",
@@ -91,7 +91,7 @@ function ContactPage() {
             </p>
           </div>
 
-          <form onSubmit={onSubmit} className="grid gap-5 rounded-3xl border border-cream/10 bg-cream/[0.02] p-8">
+          <form onSubmit={onSubmit} className="grid gap-5 rounded-3xl border border-ink/10 bg-ink/[0.02] p-8">
             <Field label={label("Όνομα", "Name")}>
               <input
                 required
@@ -129,9 +129,9 @@ function ContactPage() {
                 className="input resize-none"
               />
             </Field>
-            <p className="text-xs text-cream/55 leading-relaxed">
+            <p className="text-xs text-ink/55 leading-relaxed">
               {t("consent.contact.pre")}
-              <Link to="/privacy-policy" className="text-turquoise underline underline-offset-2">
+              <Link to="/privacy-policy" className="text-slate underline underline-offset-2">
                 {t("consent.link")}
               </Link>
               {t("consent.period")}
@@ -139,7 +139,7 @@ function ContactPage() {
             <button
               type="submit"
               disabled={busy}
-              className="inline-flex justify-center items-center gap-2 rounded-full bg-turquoise text-midnight px-8 py-4 text-sm font-bold uppercase tracking-widest disabled:opacity-60 hover:-translate-y-0.5 transition-transform"
+              className="inline-flex justify-center items-center gap-2 rounded-full bg-slate text-sand px-8 py-4 text-sm font-bold uppercase tracking-widest disabled:opacity-60 hover:-translate-y-0.5 transition-transform"
             >
               {busy ? label("Αποστολή...", "Sending...") : label("Αποστολή", "Send")}
             </button>
@@ -153,7 +153,7 @@ function ContactPage() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-cream/60 mb-2">
+      <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">
         {label}
       </span>
       {children}

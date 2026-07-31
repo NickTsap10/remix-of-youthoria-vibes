@@ -17,14 +17,14 @@ export function Ticker() {
   ]);
   const items = [...texts, ...texts, ...texts];
   return (
-    <div className="border-y border-cream/10 bg-midnight/80 backdrop-blur py-3 overflow-hidden">
+    <div className="border-y border-ink/10 bg-stone/40 py-3.5 overflow-hidden">
       <div className="flex whitespace-nowrap animate-ticker gap-12 w-max">
         {items.map((text, i) => (
           <span
             key={i}
-            className="text-xs font-bold uppercase tracking-[0.22em] text-cream/50 inline-flex items-center gap-3"
+            className="text-xs font-bold uppercase tracking-[0.22em] text-mist inline-flex items-center gap-3"
           >
-            <span className="text-turquoise">✦</span> {text}
+            <span className="text-slate/70">✦</span> {text}
           </span>
         ))}
       </div>
