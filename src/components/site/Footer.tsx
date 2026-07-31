@@ -133,7 +133,7 @@ export function Footer() {
         <div className="mt-20 grid gap-14 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div className="space-y-5">
             <img
-              src={getAssetUrl("/images/brand/youthoria-script-slate.png")}
+              src={getAssetUrl("/images/brand/youthoria-script-slate.webp")}
               alt="Youthoria"
               className="h-12 w-auto object-contain"
             />

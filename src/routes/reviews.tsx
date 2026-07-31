@@ -32,8 +32,10 @@ const reviewSchema = z.object({
 function ReviewsPage() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
-  const { data: reviews = [], isLoading } = useQuery({
+  const { data: reviews = [], isLoading, isError } = useQuery({
     queryKey: ["reviews"],
+    staleTime: 60_000,
+    retry: 1,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("reviews")
@@ -62,6 +64,10 @@ function ReviewsPage() {
       <section className="container-x mt-12">
         {isLoading ? (
           <div className="text-ink/60">Loading…</div>
+        ) : isError ? (
+          <div className="rounded-2xl border border-ink/10 bg-ink/[0.02] p-6 text-ink/60 text-sm">
+            Couldn't load reviews right now. Please refresh the page.
+          </div>
         ) : reviews.length === 0 ? (
           <div className="rounded-2xl border border-ink/10 bg-ink/[0.02] p-6 text-ink/60 text-sm">
             {t("reviews.empty")}

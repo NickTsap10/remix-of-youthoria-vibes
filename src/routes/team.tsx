@@ -40,6 +40,9 @@ function TeamPage() {
                 src={m.photo}
                 alt={m.name}
                 loading="lazy"
+                decoding="async"
+                width={380}
+                height={506}
                 className="size-28 md:size-32 shrink-0 rounded-2xl object-cover ring-1 ring-ink/10"
               />
               <div className="min-w-0 flex-1">
