@@ -58,9 +58,8 @@ function EpisodesPage() {
 
       <section className="container-x mt-20">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {episodes.map((e: any, i: number) => {
-            return (
-              <button
+          {episodes.map((e: any, i: number) => (
+            <button
                 key={e.id}
                 type="button"
                 onClick={() => setSelected(e)}
@@ -98,8 +97,8 @@ function EpisodesPage() {
                 <h2 className="mt-3 font-display text-2xl md:text-[1.7rem] leading-tight text-ink text-balance transition-colors duration-300 group-hover:text-slate">
                   {e.title}
                 </h2>
-              </button>
-          })}
+            </button>
+          ))}
         </div>
         {episodes.length === 0 && (
           <div className="text-center text-mist py-24">No episodes yet.</div>
