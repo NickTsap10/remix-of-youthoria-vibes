@@ -15,10 +15,10 @@ export const Route = createFileRoute("/")({
         content:
           "Youthoria is a youth-led podcast sharing honest conversations, human stories and ideas that move a new generation forward.",
       },
-      { property: "og:title", content: "Youthoria Podcast — Stories worth listening to" },
+      { property: "og:title", content: "Youthoria Podcast — Authentic stories from a new generation" },
       {
         property: "og:description",
-        content: "A premium youth-led podcast about honest conversations and real human stories.",
+        content: "Youthoria is a youth-led podcast sharing honest conversations, human stories and ideas that move a new generation forward.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

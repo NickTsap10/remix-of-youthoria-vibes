@@ -81,33 +81,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Youthoria Podcast — From Young People, For Young People" },
+      { title: "Youthoria Podcast — Authentic stories from a new generation" },
       {
         name: "description",
         content:
-          "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams.",
+          "Youthoria is a youth-led podcast sharing honest conversations, human stories and ideas that move a new generation forward.",
       },
       { name: "author", content: "Youthoria Podcast" },
-      { property: "og:title", content: "Youthoria Podcast — From Young People, For Young People" },
+      { property: "og:title", content: "Youthoria Podcast — Authentic stories from a new generation" },
       {
         property: "og:description",
-        content: "From Young People, For Young People. An independent youth-led podcast from Greece.",
+        content: "Youthoria is a youth-led podcast sharing honest conversations, human stories and ideas that move a new generation forward.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Youthoria Podcast — From Young People, For Young People" },
-      { name: "description", content: "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams." },
-      { property: "og:description", content: "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams." },
-      { name: "twitter:description", content: "Youthoria is an independent Greek podcast made by young people, for young people — stories on culture, society, ideas and dreams." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/1GjhAQunCVafz4R0mqrzBLUem5M2/social-images/social-1783425130389-viber_image_2026-07-07_14-51-57-657.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/1GjhAQunCVafz4R0mqrzBLUem5M2/social-images/social-1783425130389-viber_image_2026-07-07_14-51-57-657.webp" },
+      { name: "twitter:title", content: "Youthoria Podcast — Authentic stories from a new generation" },
+      { name: "description", content: "Youthoria is a youth-led podcast sharing honest conversations, human stories and ideas that move a new generation forward." },
+      { property: "og:description", content: "Youthoria is a youth-led podcast sharing honest conversations, human stories and ideas that move a new generation forward." },
+      { name: "twitter:description", content: "Youthoria is a youth-led podcast sharing honest conversations, human stories and ideas that move a new generation forward." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/9G4L5gA6ctWetDpnQAwJOdMKTzG3/social-images/social-1785530341923-social-image.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/9G4L5gA6ctWetDpnQAwJOdMKTzG3/social-images/social-1785530341923-social-image.webp" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
