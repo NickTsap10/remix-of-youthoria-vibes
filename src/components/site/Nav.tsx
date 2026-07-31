@@ -59,6 +59,9 @@ export function Nav() {
           <img
             src={getAssetUrl("/images/brand/youthoria-script-slate.webp")}
             alt="Youthoria"
+            width={1000}
+            height={481}
+            decoding="async"
             className={`w-auto object-contain transition-all duration-700 group-hover:opacity-80 ${
               scrolled ? "h-9 md:h-11" : "h-11 md:h-14"
             }`}
