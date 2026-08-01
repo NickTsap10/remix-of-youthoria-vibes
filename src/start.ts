@@ -1,7 +1,10 @@
 import { createStart, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
-import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
+// Intentionally NOT importing the generated `attachSupabaseAuth`: it statically
+// imports the Supabase client into the initial bundle. The lazy equivalent below
+// attaches the same bearer token.
+import { attachSupabaseAuthLazy } from "@/lib/supabase-auth";
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
@@ -19,6 +22,6 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
 });
 
 export const startInstance = createStart(() => ({
-  functionMiddleware: [attachSupabaseAuth],
+  functionMiddleware: [attachSupabaseAuthLazy],
   requestMiddleware: [errorMiddleware],
 }));
