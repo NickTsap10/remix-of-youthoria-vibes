@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase } from "@/lib/supabase-lazy";
 
 async function fetchMarquee() {
+  const supabase = await getSupabase();
   const { data, error } = await supabase
     .from("marquee_text")
     .select("id,text_content,sort_order")
@@ -11,7 +12,15 @@ async function fetchMarquee() {
 }
 
 export function Ticker() {
-  const { data } = useQuery({ queryKey: ["marquee"], queryFn: fetchMarquee });
+  const { data } = useQuery({
+    queryKey: ["marquee"],
+    queryFn: fetchMarquee,
+    staleTime: 5 * 60_000,
+    gcTime: 30 * 60_000,
+    retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
   const texts = (data && data.length ? data.map((d) => d.text_content) : [
     "Check new episodes on Spotify",
   ]);
