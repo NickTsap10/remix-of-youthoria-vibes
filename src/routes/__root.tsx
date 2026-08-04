@@ -117,7 +117,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "preload",
         as: "image",
-        href: "/images/brand/youthoria-script-slate.webp",
+        href: "/images/brand/youthoria-script-slate-300.webp",
         fetchPriority: "high",
       },
     ],
