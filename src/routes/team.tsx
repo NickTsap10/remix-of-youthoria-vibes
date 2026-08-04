@@ -28,7 +28,7 @@ function TeamPage() {
         </div>
       </section>
 
-      <section className="container-x mt-20 grid gap-8 md:grid-cols-2">
+      <section className="container-x mt-20 grid cv-auto gap-8 md:grid-cols-2">
         {team.map((m, i) => (
           <article
             key={m.name}
@@ -43,6 +43,7 @@ function TeamPage() {
                 decoding="async"
                 width={380}
                 height={506}
+                sizes="(max-width: 768px) 112px, 128px"
                 className="size-28 md:size-32 shrink-0 rounded-2xl object-cover ring-1 ring-ink/10"
               />
               <div className="min-w-0 flex-1">

@@ -75,6 +75,8 @@ function EpisodesPage() {
                       src={getAssetUrl(e.image_url)}
                       alt={e.title}
                       loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 768px) 92vw, 380px"
                       className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                     />
                   ) : (
