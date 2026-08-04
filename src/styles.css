@@ -293,3 +293,22 @@
   &:focus { border-color: var(--slate); background: rgba(255, 255, 255, 0.8); }
   &::placeholder { color: rgba(136, 146, 146, 0.9); }
 }
+
+/* Skip layout/paint work for off-screen sections (big win on mobile CPUs). */
+@utility cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
+
+/* Respect reduced motion and kill the infinite loops that keep mobile
+   compositors busy for the whole session. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
