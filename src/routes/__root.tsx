@@ -113,9 +113,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap",
-        // Fonts should never block the first paint on a slow mobile connection.
-        media: "print",
-        onLoad: "this.media='all'",
       },
       {
         rel: "preload",
