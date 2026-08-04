@@ -31,17 +31,28 @@ export function Nav() {
   };
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 16);
-    on();
+    // rAF-throttled so fast mobile scrolls don't fire a React update per event.
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 16);
+    };
+    const on = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    apply();
     window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
+    return () => {
+      window.removeEventListener("scroll", on);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
     <nav
       className={`fixed top-0 z-50 w-full transition-all duration-700 ${
         scrolled
-          ? "bg-sand/70 backdrop-blur-xl border-b border-ink/10 shadow-[0_10px_40px_-30px_rgba(44,55,66,0.6)]"
+          ? "bg-sand/95 md:bg-sand/70 md:backdrop-blur-xl border-b border-ink/10 shadow-[0_10px_40px_-30px_rgba(44,55,66,0.6)]"
           : "bg-transparent border-b border-transparent"
       }`}
     >
@@ -57,11 +68,14 @@ export function Nav() {
           aria-label="Youthoria"
         >
           <img
-            src={getAssetUrl("/images/brand/youthoria-script-slate.webp")}
+            src={getAssetUrl("/images/brand/youthoria-script-slate-300.webp")}
+            srcSet={`${getAssetUrl("/images/brand/youthoria-script-slate-300.webp")} 300w, ${getAssetUrl("/images/brand/youthoria-script-slate-600.webp")} 600w`}
+            sizes="(max-width: 768px) 120px, 200px"
             alt="Youthoria"
-            width={1000}
-            height={481}
+            width={300}
+            height={144}
             decoding="async"
+            fetchPriority="high"
             className={`w-auto object-contain transition-all duration-700 group-hover:opacity-80 ${
               scrolled ? "h-9 md:h-11" : "h-11 md:h-14"
             }`}
@@ -104,7 +118,7 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-ink/10 bg-sand/95 backdrop-blur-xl animate-fade-up">
+        <div className="lg:hidden border-t border-ink/10 bg-sand animate-fade-up">
           <div className="container-x flex flex-col py-4">
             {links.map((l) => (
               <Link

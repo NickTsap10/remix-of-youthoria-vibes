@@ -35,8 +35,8 @@ function Index() {
       {/* HERO */}
       <section className="relative overflow-hidden pt-36 md:pt-48 pb-24 md:pb-32">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(255,255,255,0.75),transparent_60%)]" />
-        <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 size-[46rem] rounded-full bg-slate/[0.07] blur-[150px]" />
-        <div className="pointer-events-none absolute -bottom-32 -right-24 size-[30rem] rounded-full bg-stone/50 blur-[120px]" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 hidden -translate-x-1/2 size-[46rem] rounded-full bg-slate/[0.07] blur-[150px] md:block" />
+        <div className="pointer-events-none absolute -bottom-32 -right-24 hidden size-[30rem] rounded-full bg-stone/50 blur-[120px] md:block" />
 
         <div className="container-x relative">
           <div className="max-w-4xl">
@@ -77,7 +77,7 @@ function Index() {
       </section>
 
       {/* REVIEWS */}
-      <section className="section-pad bg-stone/40 border-y border-ink/10">
+      <section className="section-pad cv-auto bg-stone/40 border-y border-ink/10">
         <div className="container-x grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <Reveal>
             <div className="label-eyebrow mb-4 inline-flex items-center gap-2">
@@ -107,13 +107,13 @@ function Index() {
               </p>
               <div className="mt-8 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-mist">
                 <img
-                  src={getAssetUrl("/images/brand/youthoria-script-slate.webp")}
+                  src={getAssetUrl("/images/brand/youthoria-script-slate-300.webp")}
                   alt=""
                   aria-hidden
                   loading="lazy"
                   decoding="async"
-                  width={1000}
-                  height={481}
+                  width={300}
+                  height={144}
                   className="h-6 w-auto opacity-60"
                 />
                 <span>{lang === "el" ? "Ακροατές" : "Listeners"}</span>
@@ -124,7 +124,7 @@ function Index() {
       </section>
 
       {/* TEAM */}
-      <section className="section-pad">
+      <section className="section-pad cv-auto">
         <div className="container-x">
           <Reveal className="max-w-2xl">
             <div className="label-eyebrow mb-4 inline-flex items-center gap-2">
@@ -147,6 +147,7 @@ function Index() {
                       decoding="async"
                       width={380}
                       height={506}
+                      sizes="(max-width: 768px) 45vw, 260px"
                       className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -172,7 +173,7 @@ function Index() {
       </section>
 
       {/* SUPPORT */}
-      <section className="relative overflow-hidden bg-slate py-28 md:py-36 text-sand">
+      <section className="relative overflow-hidden cv-auto bg-slate py-28 md:py-36 text-sand">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_0%,rgba(234,224,199,0.16),transparent_65%)]" />
         <div className="container-x relative max-w-3xl text-center">
           <Reveal>
