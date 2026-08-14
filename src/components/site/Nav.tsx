@@ -1,4 +1,4 @@
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link, useRouter, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, Heart } from "lucide-react";
 import { useI18n, type Lang, type DictKey } from "@/lib/i18n";
@@ -19,6 +19,9 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // The homepage hero is a dark slate canvas, so the transparent nav needs light ink there.
+  const onDark = pathname === "/" && !scrolled;
 
   const goHome = (e: React.MouseEvent) => {
     if (router.state.location.pathname === "/") {
@@ -68,8 +71,8 @@ export function Nav() {
           aria-label="Youthoria"
         >
           <img
-            src={getAssetUrl("/images/brand/youthoria-script-slate-300.webp")}
-            srcSet={`${getAssetUrl("/images/brand/youthoria-script-slate-300.webp")} 300w, ${getAssetUrl("/images/brand/youthoria-script-slate-600.webp")} 600w`}
+            src={getAssetUrl(`/images/brand/youthoria-script-${onDark ? "cream" : "slate"}-300.webp`)}
+            srcSet={`${getAssetUrl(`/images/brand/youthoria-script-${onDark ? "cream" : "slate"}-300.webp`)} 300w, ${getAssetUrl(`/images/brand/youthoria-script-${onDark ? "cream" : "slate"}-600.webp`)} 600w`}
             sizes="(max-width: 768px) 120px, 200px"
             alt="Youthoria"
             width={300}
@@ -83,14 +86,16 @@ export function Nav() {
         </Link>
 
         <div className="flex items-center gap-3 md:gap-6">
-          <div className="hidden lg:flex items-center gap-8 text-[13px] font-medium text-ink/65">
+          <div className={`hidden lg:flex items-center gap-8 text-[13px] font-medium ${onDark ? "text-sand/75" : "text-ink/65"}`}>
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
                 onClick={l.to === "/" ? goHome : undefined}
-                className="relative py-1 transition-colors duration-300 hover:text-ink after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-slate after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100"
-                activeProps={{ className: "text-ink after:scale-x-100" }}
+                className={`relative py-1 transition-colors duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 ${
+                  onDark ? "hover:text-sand after:bg-sand/70" : "hover:text-ink after:bg-slate"
+                }`}
+                activeProps={{ className: onDark ? "text-sand after:scale-x-100" : "text-ink after:scale-x-100" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
                 {t(l.key)}
@@ -102,15 +107,19 @@ export function Nav() {
             href={SOCIALS.donate}
             target="_blank"
             rel="noreferrer"
-            className="hidden sm:inline-flex shrink-0 items-center gap-1.5 rounded-full bg-slate text-sand px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.14em] transition-all duration-300 hover:bg-ink hover:-translate-y-0.5"
+            className={`hidden sm:inline-flex shrink-0 items-center gap-1.5 rounded-full px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.14em] transition-all duration-300 hover:-translate-y-0.5 ${
+              onDark ? "bg-sand text-ink hover:bg-white" : "bg-slate text-sand hover:bg-ink"
+            }`}
           >
             <Heart className="size-3.5" /> {t("support.donate")}
           </a>
-          <LangSwitcher lang={lang} onChange={setLang} />
+          <LangSwitcher lang={lang} onChange={setLang} onDark={onDark} />
           <button
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden size-10 shrink-0 grid place-items-center rounded-full border border-ink/15 bg-white/40 text-ink transition-colors hover:bg-white/70"
+            className={`lg:hidden size-10 shrink-0 grid place-items-center rounded-full border transition-colors ${
+              onDark ? "border-sand/25 bg-sand/10 text-sand hover:bg-sand/20" : "border-ink/15 bg-white/40 text-ink hover:bg-white/70"
+            }`}
           >
             {open ? <X className="size-4" /> : <Menu className="size-4" />}
           </button>
@@ -148,15 +157,17 @@ export function Nav() {
   );
 }
 
-function LangSwitcher({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => void }) {
+function LangSwitcher({ lang, onChange, onDark }: { lang: Lang; onChange: (l: Lang) => void; onDark?: boolean }) {
   return (
-    <div className="flex shrink-0 items-center rounded-full bg-white/40 border border-ink/10 p-1 text-[11px] font-medium">
+    <div className={`flex shrink-0 items-center rounded-full border p-1 text-[11px] font-medium ${onDark ? "border-sand/25 bg-sand/10" : "border-ink/10 bg-white/40"}`}>
       {(["el", "en"] as Lang[]).map((l) => (
         <button
           key={l}
           onClick={() => onChange(l)}
           className={`px-3 py-1 rounded-full uppercase tracking-[0.12em] transition-colors duration-300 ${
-            lang === l ? "bg-slate text-sand" : "text-ink/55 hover:text-ink"
+            lang === l
+              ? onDark ? "bg-sand text-ink" : "bg-slate text-sand"
+              : onDark ? "text-sand/60 hover:text-sand" : "text-ink/55 hover:text-ink"
           }`}
           aria-pressed={lang === l}
         >

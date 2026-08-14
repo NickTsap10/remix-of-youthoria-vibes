@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Heart, Mic, Star, Users } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Heart, Star, Users } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { Reveal } from "@/components/site/Reveal";
+import { HeroCanvas } from "@/components/site/HeroCanvas";
+import { EpisodeCarousel } from "@/components/site/EpisodeCarousel";
 import { team } from "@/data/team";
 import { SOCIALS } from "@/lib/socials";
 import { getAssetUrl } from "@/lib/assets";
@@ -33,46 +35,100 @@ function Index() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative overflow-hidden pt-36 md:pt-48 pb-24 md:pb-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(255,255,255,0.75),transparent_60%)]" />
-        <div className="pointer-events-none absolute -top-40 left-1/2 hidden -translate-x-1/2 size-[46rem] rounded-full bg-slate/[0.07] blur-[150px] md:block" />
-        <div className="pointer-events-none absolute -bottom-32 -right-24 hidden size-[30rem] rounded-full bg-stone/50 blur-[120px] md:block" />
+      <section className="relative min-h-[100svh] overflow-hidden bg-[#536878] pb-32 pt-32 md:pb-40 md:pt-40">
+        <HeroCanvas />
 
-        <div className="container-x relative">
-          <div className="max-w-4xl">
-            <div className="animate-soft-in inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-white/50 px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.28em] text-ink/60 backdrop-blur">
-              <span className="size-1.5 rounded-full bg-slate animate-glow" />
-              Youthoria ✦ Podcast
-            </div>
+        <div className="container-x relative flex min-h-[calc(100svh-16rem)] flex-col justify-center">
+          <div className="animate-soft-in flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.34em] text-[#EAE0C7]/70">
+            <span className="size-1.5 rounded-full bg-[#EAE0C7]/70" />
+            Youthoria ✦ Podcast
+          </div>
 
-            <h1
-              className="animate-rise mt-8 font-display text-[3.25rem] sm:text-7xl md:text-[6.5rem] leading-[0.92] tracking-[-0.02em] text-ink text-balance"
+          <h1 className="mt-10 max-w-5xl text-[#F7F5EF]">
+            <span
+              className="animate-rise block text-2xl font-light tracking-[0.02em] text-[#F7F5EF]/75 sm:text-3xl md:text-4xl"
               style={{ animationDelay: "80ms" }}
             >
-              {lang === "el" ? "Από νέους, για νέους." : "By youth, for youth."}
-            </h1>
-
-            <p
-              className="animate-rise mt-8 max-w-[46ch] text-lg md:text-xl leading-relaxed text-ink/70 text-pretty"
-              style={{ animationDelay: "200ms" }}
+              {lang === "el" ? "Έχει να κάνει με" : "It’s about"}
+            </span>
+            <span
+              className="animate-rise mt-2 block font-display text-[26vw] leading-[0.82] tracking-[-0.03em] sm:text-[20vw] md:text-[15rem] lg:text-[17rem]"
+              style={{ animationDelay: "180ms" }}
             >
-              {lang === "el"
-                ? "Ένα podcast για αληθινές συζητήσεις, ανθρώπινες ιστορίες και ιδέες που αλλάζουν τη νέα γενιά."
-                : "A podcast for honest conversations, human stories and the ideas shaping a new generation."}
-            </p>
+              {lang === "el" ? "ΕΣΕΝΑ." : "YOU."}
+            </span>
+          </h1>
 
-            <div
-              className="animate-rise mt-11 flex flex-wrap items-center gap-3"
-              style={{ animationDelay: "320ms" }}
+          <p
+            className="animate-rise mt-10 max-w-[44ch] text-base leading-relaxed text-[#EAE0C7]/80 md:text-lg"
+            style={{ animationDelay: "300ms" }}
+          >
+            {lang === "el"
+              ? "Ιστορίες, φωνές και συζητήσεις από μια γενιά που βρίσκει τον δρόμο της."
+              : "Stories, voices and conversations from a generation finding its way."}
+          </p>
+
+          <div className="animate-rise mt-12 flex flex-wrap items-center gap-x-10 gap-y-6" style={{ animationDelay: "400ms" }}>
+            <Link
+              to="/episodes"
+              className="group inline-flex items-center gap-3 border-b border-[#CCC7B7]/50 pb-2 text-[11px] font-medium uppercase tracking-[0.26em] text-[#F7F5EF] transition-colors hover:border-[#F7F5EF]"
             >
-              <Link to="/episodes" className="btn-primary">
-                <Mic className="size-4" /> {t("nav.episodes")}
-              </Link>
-              <Link to="/about" className="btn-ghost">
-                {t("nav.about")} <ArrowRight className="size-4" />
-              </Link>
-            </div>
+              {lang === "el" ? "Δες τα επεισόδια" : "Explore the episodes"}
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+            </Link>
+            <Link
+              to="/about"
+              className="text-[11px] font-medium uppercase tracking-[0.26em] text-[#EAE0C7]/60 transition-colors hover:text-[#F7F5EF]"
+            >
+              {t("nav.about")}
+            </Link>
           </div>
+        </div>
+
+        {/* editorial labels */}
+        <div className="container-x pointer-events-none relative mt-16 flex flex-wrap items-end justify-between gap-6 text-[10px] font-medium uppercase tracking-[0.3em] text-[#CCC7B7]/60">
+          <span>01 / 07</span>
+          <span className="hidden sm:inline">Stories / Voices / People</span>
+          <span className="inline-flex items-center gap-2">
+            {lang === "el" ? "Κύλισε" : "Scroll to discover"} <ArrowDown className="size-3.5" />
+          </span>
+        </div>
+
+        {/* organic curved transition into the cream section */}
+        <svg
+          className="pointer-events-none absolute -bottom-px left-0 w-full"
+          viewBox="0 0 1440 130"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path d="M0 130 L0 74 C 260 6 520 132 780 78 C 1010 30 1230 34 1440 62 L1440 130 Z" fill="#F7F5EF" />
+        </svg>
+      </section>
+
+      {/* EPISODES */}
+      <section className="relative cv-auto bg-[#F7F5EF] pb-28 pt-8 md:pb-36">
+        <div className="container-x">
+          <Reveal className="max-w-3xl">
+            <div className="label-eyebrow mb-5">{t("episodes.eyebrow")}</div>
+            <h2 className="font-display text-4xl leading-[1.02] text-ink text-balance md:text-6xl">
+              {lang === "el" ? "Ανακάλυψε όλα τα επεισόδια." : "Discover all our episodes."}
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-ink/60 text-pretty">
+              {lang === "el"
+                ? "Διαφορετικές ιστορίες. Διαφορετικές φωνές. Μία γενιά."
+                : "Different stories. Different voices. One generation."}
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="mt-14 pl-6 md:pl-[max(1.5rem,calc(50vw-39rem+1.5rem))]">
+          <EpisodeCarousel />
+        </div>
+
+        <div className="container-x mt-4">
+          <Link to="/episodes" className="btn-ghost">
+            {t("episodes.viewAll")} <ArrowRight className="size-4" />
+          </Link>
         </div>
       </section>
 

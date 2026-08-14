@@ -2,8 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { LogOut, Trash2, Check, X, Star } from "lucide-react";
+import { LogOut, Trash2, Check, X, Star, Pencil } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { getAssetUrl } from "@/lib/assets";
 import { useAuth } from "@/lib/useAuth";
 
 export const Route = createFileRoute("/admin")({
@@ -151,6 +152,7 @@ function EpisodesTab() {
   const qc = useQueryClient();
   const [form, setForm] = useState({
     title: "",
+    description: "",
     duration: "",
     image_url: "",
     spotify_url: "",
@@ -159,6 +161,7 @@ function EpisodesTab() {
     category: "",
   });
   const [urlError, setUrlError] = useState<string | null>(null);
+  const [editing, setEditing] = useState<any | null>(null);
   const { data = [] } = useQuery({
     queryKey: ["admin-episodes"],
     queryFn: async () => {
@@ -178,6 +181,7 @@ function EpisodesTab() {
     setUrlError(null);
     const { error } = await supabase.from("episodes").insert({
       title: form.title,
+      description: form.description || null,
       duration: form.duration,
       image_url: form.image_url || null,
       spotify_url: form.spotify_url.trim() || null,
@@ -188,7 +192,7 @@ function EpisodesTab() {
     });
     if (error) return toast.error(error.message);
     toast.success("Episode added");
-    setForm({ title: "", duration: "", image_url: "", spotify_url: "", google_url: "", apple_url: "", category: "" });
+    setForm({ title: "", description: "", duration: "", image_url: "", spotify_url: "", google_url: "", apple_url: "", category: "" });
     qc.invalidateQueries({ queryKey: ["admin-episodes"] });
     qc.invalidateQueries({ queryKey: ["episodes"] });
   }
@@ -207,6 +211,7 @@ function EpisodesTab() {
       <form onSubmit={add} className="rounded-3xl border border-ink/10 bg-ink/[0.02] p-6 grid gap-4 h-fit">
         <h2 className="font-display text-2xl">New episode</h2>
         <FormField label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} required />
+        <FormField label="Short description" value={form.description} onChange={(v) => setForm({ ...form, description: v })} textarea />
         <FormField label="Duration (e.g. 48 MIN)" value={form.duration} onChange={(v) => setForm({ ...form, duration: v })} required />
         <FormField label="Category" value={form.category} onChange={(v) => setForm({ ...form, category: v })} />
         <FormField label="Background image URL" value={form.image_url} onChange={(v) => setForm({ ...form, image_url: v })} />
@@ -225,6 +230,7 @@ function EpisodesTab() {
             <div className="min-w-0">
               <div className="text-[10px] uppercase tracking-widest text-slate">{e.category ?? "—"} · {e.duration}</div>
               <div className="font-medium truncate">{e.title}</div>
+              {e.description && <p className="text-xs text-ink/50 line-clamp-2">{e.description}</p>}
               <div className="text-xs text-ink/40 flex flex-wrap gap-x-3">
                 {[["Spotify", e.spotify_url], ["Google", e.google_url], ["Apple", e.apple_url]].map(([label, url]: any) =>
                   url ? (
@@ -235,10 +241,106 @@ function EpisodesTab() {
                 )}
               </div>
             </div>
-            <button onClick={() => del(e.id)} className="text-red-400 hover:text-red-300 shrink-0"><Trash2 className="size-4" /></button>
+            <div className="flex items-center gap-1 shrink-0">
+              <button onClick={() => setEditing(e)} aria-label="Edit episode" className="p-2 rounded-full bg-slate/15 text-slate hover:bg-slate/25"><Pencil className="size-4" /></button>
+              <button onClick={() => del(e.id)} aria-label="Delete episode" className="text-red-400 hover:text-red-300 p-2"><Trash2 className="size-4" /></button>
+            </div>
           </div>
         ))}
       </div>
+      {editing && <EpisodeEditor episode={editing} onClose={() => setEditing(null)} />}
+    </div>
+  );
+}
+
+function EpisodeEditor({ episode, onClose }: { episode: any; onClose: () => void }) {
+  const qc = useQueryClient();
+  const [f, setF] = useState({
+    title: episode.title ?? "",
+    description: episode.description ?? "",
+    duration: episode.duration ?? "",
+    category: episode.category ?? "",
+    image_url: episode.image_url ?? "",
+    spotify_url: episode.spotify_url ?? "",
+    google_url: episode.google_url ?? "",
+    apple_url: episode.apple_url ?? "",
+    sort_order: String(episode.sort_order ?? 0),
+  });
+  const [saving, setSaving] = useState(false);
+  const [urlError, setUrlError] = useState<string | null>(null);
+
+  async function save(ev: React.FormEvent) {
+    ev.preventDefault();
+    if (!f.spotify_url.trim() && !f.google_url.trim() && !f.apple_url.trim()) {
+      setUrlError("At least one podcast URL is required (Spotify, Google or Apple).");
+      return;
+    }
+    setUrlError(null);
+    setSaving(true);
+    const { error } = await supabase
+      .from("episodes")
+      .update({
+        title: f.title,
+        description: f.description.trim() || null,
+        duration: f.duration,
+        category: f.category.trim() || null,
+        image_url: f.image_url.trim() || null,
+        spotify_url: f.spotify_url.trim() || null,
+        google_url: f.google_url.trim() || null,
+        apple_url: f.apple_url.trim() || null,
+        sort_order: Number(f.sort_order) || 0,
+      })
+      .eq("id", episode.id);
+    setSaving(false);
+    if (error) return toast.error(error.message);
+    toast.success("Episode updated");
+    qc.invalidateQueries({ queryKey: ["admin-episodes"] });
+    qc.invalidateQueries({ queryKey: ["episodes"] });
+    onClose();
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-ink/50 p-4 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Edit ${episode.title}`}
+      onClick={onClose}
+    >
+      <form
+        onSubmit={save}
+        onClick={(ev) => ev.stopPropagation()}
+        className="mx-auto my-8 grid w-full max-w-lg gap-4 rounded-3xl border border-ink/10 bg-sand p-6 shadow-[var(--shadow-lift)]"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <h2 className="font-display text-2xl">Edit episode</h2>
+          <button type="button" onClick={onClose} aria-label="Close" className="grid size-9 place-items-center rounded-full bg-ink/5 text-ink/60 hover:text-ink">
+            <X className="size-4" />
+          </button>
+        </div>
+        {f.image_url && (
+          <img
+            src={getAssetUrl(f.image_url)}
+            alt=""
+            className="h-32 w-full rounded-2xl border border-ink/10 object-cover"
+            onError={(ev) => { (ev.currentTarget as HTMLImageElement).style.display = "none"; }}
+          />
+        )}
+        <FormField label="Title" value={f.title} onChange={(v) => setF({ ...f, title: v })} required />
+        <FormField label="Short description" value={f.description} onChange={(v) => setF({ ...f, description: v })} textarea />
+        <FormField label="Duration (e.g. 48 MIN)" value={f.duration} onChange={(v) => setF({ ...f, duration: v })} required />
+        <FormField label="Category" value={f.category} onChange={(v) => setF({ ...f, category: v })} />
+        <FormField label="Image URL (/images/... or https://...)" value={f.image_url} onChange={(v) => setF({ ...f, image_url: v })} />
+        <FormField label="Spotify URL" value={f.spotify_url} onChange={(v) => setF({ ...f, spotify_url: v })} />
+        <FormField label="Google Podcasts URL" value={f.google_url} onChange={(v) => setF({ ...f, google_url: v })} />
+        <FormField label="Apple Podcasts URL" value={f.apple_url} onChange={(v) => setF({ ...f, apple_url: v })} />
+        <FormField label="Sort order" value={f.sort_order} onChange={(v) => setF({ ...f, sort_order: v })} />
+        {urlError && <p role="alert" className="-mt-1 text-xs text-red-400">{urlError}</p>}
+        <div className="flex gap-3">
+          <button disabled={saving} className="btn-primary justify-center flex-1 disabled:opacity-50">{saving ? "Saving…" : "Save changes"}</button>
+          <button type="button" onClick={onClose} className="btn-ghost justify-center">Cancel</button>
+        </div>
+      </form>
     </div>
   );
 }
@@ -414,11 +516,15 @@ function MarqueeRow({ row, onSave, onDelete }: { row: any; onSave: (id: string, 
   );
 }
 
-function FormField({ label, value, onChange, required }: { label: string; value: string; onChange: (v: string) => void; required?: boolean }) {
+function FormField({ label, value, onChange, required, textarea }: { label: string; value: string; onChange: (v: string) => void; required?: boolean; textarea?: boolean }) {
   return (
     <label className="block">
       <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">{label}</span>
-      <input className="input" value={value} onChange={(e) => onChange(e.target.value)} required={required} />
+      {textarea ? (
+        <textarea className="input min-h-24 resize-y" value={value} onChange={(e) => onChange(e.target.value)} required={required} />
+      ) : (
+        <input className="input" value={value} onChange={(e) => onChange(e.target.value)} required={required} />
+      )}
     </label>
   );
 }
