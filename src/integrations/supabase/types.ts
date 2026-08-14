@@ -19,6 +19,7 @@ export type Database = {
           apple_url: string | null
           category: string | null
           created_at: string
+          description: string | null
           duration: string
           google_url: string | null
           id: string
@@ -31,6 +32,7 @@ export type Database = {
           apple_url?: string | null
           category?: string | null
           created_at?: string
+          description?: string | null
           duration: string
           google_url?: string | null
           id?: string
@@ -43,6 +45,7 @@ export type Database = {
           apple_url?: string | null
           category?: string | null
           created_at?: string
+          description?: string | null
           duration?: string
           google_url?: string | null
           id?: string
