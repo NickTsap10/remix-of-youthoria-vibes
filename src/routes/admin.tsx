@@ -2,8 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { LogOut, Trash2, Check, X, Star } from "lucide-react";
+import { LogOut, Trash2, Check, X, Star, Pencil } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { getAssetUrl } from "@/lib/assets";
 import { useAuth } from "@/lib/useAuth";
 
 export const Route = createFileRoute("/admin")({
@@ -515,11 +516,15 @@ function MarqueeRow({ row, onSave, onDelete }: { row: any; onSave: (id: string, 
   );
 }
 
-function FormField({ label, value, onChange, required }: { label: string; value: string; onChange: (v: string) => void; required?: boolean }) {
+function FormField({ label, value, onChange, required, textarea }: { label: string; value: string; onChange: (v: string) => void; required?: boolean; textarea?: boolean }) {
   return (
     <label className="block">
       <span className="block text-[11px] font-bold uppercase tracking-[0.24em] text-ink/60 mb-2">{label}</span>
-      <input className="input" value={value} onChange={(e) => onChange(e.target.value)} required={required} />
+      {textarea ? (
+        <textarea className="input min-h-24 resize-y" value={value} onChange={(e) => onChange(e.target.value)} required={required} />
+      ) : (
+        <input className="input" value={value} onChange={(e) => onChange(e.target.value)} required={required} />
+      )}
     </label>
   );
 }
