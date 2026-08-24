@@ -49,7 +49,7 @@ export const team: Member[] = [
     photo: getAssetUrl("/images/team/sotiris.webp"),
   },
   {
-    name: "Paulos Tsakalidis",
+    name: "Paulos Tsalakidis",
     role: { el: "Community & Engagement Team", en: "Community & Engagement Team" },
     email: "info@youthoria.gr",
     photo: getAssetUrl("/images/team/paulos.webp"),
