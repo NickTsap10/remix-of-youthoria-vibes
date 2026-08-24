@@ -1,4 +1,5 @@
 import { getAssetUrl } from "@/lib/assets";
+import paulosTeamAsset from "@/assets/paulos-team.jpeg.asset.json";
 
 export type Member = {
   name: string;
