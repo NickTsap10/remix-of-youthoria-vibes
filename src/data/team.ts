@@ -1,5 +1,4 @@
 import { getAssetUrl } from "@/lib/assets";
-import paulosTeamAsset from "@/assets/paulos-team.jpeg.asset.json";
 
 export type Member = {
   name: string;
@@ -53,6 +52,6 @@ export const team: Member[] = [
     name: "Paulos Tsakalidis",
     role: { el: "Community & Engagement Team", en: "Community & Engagement Team" },
     email: "info@youthoria.gr",
-    photo: getAssetUrl(paulosTeamAsset),
+    photo: getAssetUrl("/images/team/paulos.webp"),
   },
 ];
