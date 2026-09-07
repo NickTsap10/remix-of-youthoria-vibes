@@ -101,9 +101,10 @@ function EpisodesPage() {
       </section>
 
 
-      <section className="container-x mt-20">
+      <section className="container-x mt-14">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {episodes.map((e: any, i: number) => (
+          {visible.map((e: any, i: number) => (
+
             <button
                 key={e.id}
                 type="button"
