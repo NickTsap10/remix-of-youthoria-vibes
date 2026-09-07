@@ -20,8 +20,10 @@ export const Route = createFileRoute("/episodes")({
 });
 
 function EpisodesPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [selected, setSelected] = useState<any | null>(null);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<string | null>(null);
   const { data: episodes = [], isLoading, isError } = useQuery({
     queryKey: ["episodes"],
     staleTime: 60_000,
@@ -36,28 +38,68 @@ function EpisodesPage() {
       return data;
     },
   });
+
+  const categories = Array.from(
+    new Set(episodes.map((e: any) => e.category).filter(Boolean) as string[])
+  );
+  const q = query.trim().toLowerCase();
+  const visible = episodes.filter((e: any) => {
+    const matchesCat = !category || e.category === category;
+    const matchesQ =
+      !q ||
+      `${e.title ?? ""} ${e.description ?? ""} ${e.category ?? ""}`.toLowerCase().includes(q);
+    return matchesCat && matchesQ;
+  });
+
   return (
     <div className="pt-36 md:pt-44 pb-28">
-      <section className="relative">
-        <StarField />
-        <div className="container-x relative">
+      <PageHeader
+        eyebrow={t("episodes.eyebrow")}
+        title={t("episodes.title")}
+        lede={t("episodes.subtitle")}
+        index={`${String(episodes.length).padStart(2, "0")} / Episodes`}
+        action={
           <a
             href="https://youthoria-booking-studio.lovable.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mb-8 inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-slate text-sand px-7 py-3.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
+            className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-slate px-7 py-3.5 text-[11px] font-medium uppercase tracking-[0.16em] text-sand shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink sm:w-auto sm:text-xs"
           >
             <CalendarCheck className="size-4" /> {t("episodes.book")}
           </a>
-          <div className="label-eyebrow mb-4">{t("episodes.eyebrow")}</div>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.95] max-w-3xl text-balance text-ink">
-            {t("episodes.title")}
-          </h1>
-          <p className="mt-7 text-lg text-ink/65 max-w-[52ch] leading-relaxed text-pretty">
-            {t("episodes.subtitle")}
-          </p>
+        }
+      />
+
+      {/* SEARCH + FILTERS */}
+      <section className="container-x mt-14">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <label className="relative w-full md:max-w-sm">
+            <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-mist" />
+            <input
+              type="search"
+              value={query}
+              onChange={(ev) => setQuery(ev.target.value)}
+              placeholder={lang === "el" ? "Αναζήτηση επεισοδίων…" : "Search episodes…"}
+              aria-label={lang === "el" ? "Αναζήτηση επεισοδίων" : "Search episodes"}
+              className="w-full rounded-full border border-ink/12 bg-white/45 py-3.5 pl-11 pr-4 text-sm text-ink placeholder:text-mist focus:border-slate/40 focus:outline-none"
+            />
+          </label>
+
+          {categories.length > 0 && (
+            <div className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
+              <FilterChip active={!category} onClick={() => setCategory(null)}>
+                {lang === "el" ? "Όλα" : "All"}
+              </FilterChip>
+              {categories.map((c) => (
+                <FilterChip key={c} active={category === c} onClick={() => setCategory(c)}>
+                  {c}
+                </FilterChip>
+              ))}
+            </div>
+          )}
         </div>
       </section>
+
 
       <section className="container-x mt-20">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
