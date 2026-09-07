@@ -145,8 +145,11 @@ function EpisodesPage() {
                 </div>
                 <h2 className="mt-3 font-display text-2xl leading-tight text-balance text-ink transition-colors duration-300 group-hover:text-slate md:text-[1.7rem]">
                   {e.title}
-
                 </h2>
+                {e.description ? (
+                  <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-ink/60">{e.description}</p>
+                ) : null}
+
             </button>
           ))}
         </div>
