@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { StarField } from "@/components/site/StarField";
+import { PageHeader } from "@/components/site/PageHeader";
+import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -8,6 +9,8 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "The story, mission and values behind Youthoria Podcast." },
       { property: "og:title", content: "About Youthoria" },
       { property: "og:description", content: "The story, mission and values behind Youthoria Podcast." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AboutPage,
@@ -24,70 +27,69 @@ const VALUES = [
 
 function AboutPage() {
   return (
-    <div className="pt-32 pb-24">
-      <section className="relative">
-        <StarField />
-        <div className="container-x relative max-w-4xl">
-          <div className="label-eyebrow mb-4">Ποιοι είμαστε</div>
-          <h1 className="font-display text-5xl md:text-7xl leading-tight text-balance">
-            Ξαναγράφουμε τον διάλογο της νέας εποχής.
-          </h1>
-          <p className="mt-8 text-lg md:text-xl text-ink/80 leading-relaxed text-pretty">
-            Το Youthoria είναι μια πλατφόρμα που δίνει χώρο στις αυθεντικές φωνές της νέας γενιάς.
+    <div className="pt-36 pb-28 md:pt-44">
+      <PageHeader
+        eyebrow="Ποιοι είμαστε"
+        title="Ξαναγράφουμε τον διάλογο της νέας εποχής."
+        index="00 / About"
+        lede="Το Youthoria είναι μια πλατφόρμα που δίνει χώρο στις αυθεντικές φωνές της νέας γενιάς — χωρίς φίλτρα, χωρίς έτοιμα σενάρια."
+      />
+
+      <section className="container-x cv-auto mt-20 grid gap-12 md:mt-28 md:grid-cols-2 md:gap-16">
+        <Reveal>
+          <p className="text-lg leading-relaxed text-pretty text-ink/80 md:text-xl">
             Εδώ δεν υπάρχουν φίλτρα, έτοιμα σενάρια ή «σωστές απαντήσεις» — μόνο αληθινές εμπειρίες,
-            ιδέες και ιστορίες που αξίζουν να ακουστούν.
+            ιδέες και ιστορίες που αξίζουν να ακουστούν. Πιστεύουμε ότι οι πιο δυνατές αφηγήσεις δεν
+            γράφονται από απόσταση, αλλά από αυτούς που τις ζουν.
           </p>
-          <p className="mt-4 text-lg text-ink/70 leading-relaxed text-pretty">
-            Πιστεύουμε ότι οι πιο δυνατές αφηγήσεις δεν γράφονται από απόσταση, αλλά από αυτούς που τις ζουν.
-          </p>
-        </div>
+        </Reveal>
+        <Reveal delay={120} className="grid gap-10">
+          <div className="border-t border-ink/12 pt-6">
+            <h2 className="font-display text-3xl leading-tight text-ink md:text-4xl">Το Όραμά μας</h2>
+            <p className="mt-4 leading-relaxed text-ink/70">
+              Να δημιουργήσουμε έναν νέο χώρο έκφρασης για τη νεολαία — έναν χώρο όπου οι ιδέες δεν
+              περιορίζονται, αλλά εξελίσσονται. Το Youthoria φιλοδοξεί να γίνει μια σύγχρονη media
+              πλατφόρμα που ενώνει κουλτούρα, σκέψη και δημιουργικότητα.
+            </p>
+          </div>
+          <div className="border-t border-ink/12 pt-6">
+            <h2 className="font-display text-3xl leading-tight text-ink md:text-4xl">Η Αποστολή μας</h2>
+            <p className="mt-4 leading-relaxed text-ink/70">
+              Να αναδείξουμε τις ιστορίες που δεν ακούγονται αρκετά. Μέσα από podcasts, συζητήσεις
+              και συνεντεύξεις, δημιουργούμε έναν ανοιχτό χώρο διαλόγου όπου η νεολαία μπορεί να
+              εκφραστεί ελεύθερα, να εμπνευστεί και να εμπνεύσει.
+            </p>
+          </div>
+        </Reveal>
       </section>
 
-      <section className="container-x mt-24 grid md:grid-cols-2 gap-8">
-        <div className="rounded-3xl border border-ink/10 bg-ink/[0.02] p-10">
-          <div className="text-slate text-2xl mb-4 animate-star inline-block">✦</div>
-          <h3 className="font-display text-3xl mb-4">Το Όραμά μας</h3>
-          <p className="text-ink/75 leading-relaxed">
-            Να δημιουργήσουμε έναν νέο χώρο έκφρασης για τη νεολαία — έναν χώρο όπου οι ιδέες δεν
-            περιορίζονται, αλλά εξελίσσονται. Το Youthoria φιλοδοξεί να γίνει μια σύγχρονη media
-            πλατφόρμα που ενώνει κουλτούρα, σκέψη και δημιουργικότητα, δίνοντας βήμα σε νέες φωνές
-            που έχουν κάτι ουσιαστικό να πουν.
-          </p>
-        </div>
-        <div className="rounded-3xl border border-slate/25 bg-slate/5 p-10">
-          <div className="text-slate text-2xl mb-4 animate-star inline-block">✦</div>
-          <h3 className="font-display text-3xl mb-4">Η Αποστολή μας</h3>
-          <p className="text-ink/80 leading-relaxed">
-            Να αναδείξουμε τις ιστορίες που δεν ακούγονται αρκετά. Μέσα από podcasts, συζητήσεις
-            και συνεντεύξεις, δημιουργούμε έναν ανοιχτό χώρο διαλόγου όπου η νεολαία μπορεί να
-            εκφραστεί ελεύθερα, να εμπνευστεί και να εμπνεύσει.
-          </p>
-        </div>
-      </section>
-
-      <section className="container-x mt-24">
-        <div className="label-eyebrow mb-6">Οι Αξίες μας ✦</div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <section className="container-x cv-auto mt-24 md:mt-32">
+        <div className="label-eyebrow mb-8">Οι Αξίες μας ✦</div>
+        <div className="border-t border-ink/12">
           {VALUES.map((v, i) => (
-            <div
-              key={v.n}
-              className="rounded-2xl border border-ink/10 bg-ink/[0.02] p-6 hover:border-slate/30 hover:bg-slate/5 transition-colors animate-fade-up"
-              style={{ animationDelay: `${i * 60}ms` }}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="font-display text-3xl">{v.t}</span>
-                <span className="text-[10px] font-bold tracking-widest text-ink/40">{v.n}</span>
+            <Reveal key={v.n} delay={i * 60}>
+              <div className="group grid grid-cols-[auto_1fr] items-start gap-x-5 gap-y-2 border-b border-ink/12 py-7 transition-colors duration-500 hover:bg-white/25 md:grid-cols-[4rem_16rem_1fr] md:gap-x-8 md:py-8">
+                <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-mist md:pt-2">
+                  {v.n}
+                </span>
+                <h3 className="font-display text-2xl leading-tight text-ink transition-colors duration-300 group-hover:text-slate md:text-3xl">
+                  {v.t}
+                </h3>
+                <p className="col-start-2 text-sm leading-relaxed text-ink/65 md:col-start-3 md:text-base">
+                  {v.b}
+                </p>
               </div>
-              <p className="text-sm text-ink/65 leading-relaxed">{v.b}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="container-x mt-24 max-w-3xl">
-        <p className="font-display text-2xl md:text-3xl leading-snug text-balance text-center">
-          Το Youthoria δεν είναι απλώς ένα podcast. <br />
-          <span className="text-slate">Είναι ένας ζωντανός χώρος έκφρασης, συζήτησης και δημιουργίας για τη νέα γενιά.</span>
+      <section className="container-x mt-24 max-w-3xl md:mt-32">
+        <p className="text-center font-display text-2xl leading-snug text-balance text-ink md:text-4xl">
+          Το Youthoria δεν είναι απλώς ένα podcast.{" "}
+          <span className="text-slate">
+            Είναι ένας ζωντανός χώρος έκφρασης, συζήτησης και δημιουργίας για τη νέα γενιά.
+          </span>
         </p>
       </section>
     </div>

@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowUpRight, CalendarCheck, X, Music2, Podcast, Apple } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { ArrowUpRight, CalendarCheck, X, Music2, Podcast, Apple, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
-import { StarField } from "@/components/site/StarField";
+import { PageHeader } from "@/components/site/PageHeader";
 import { supabase } from "@/integrations/supabase/client";
 import { getAssetUrl } from "@/lib/assets";
+
 
 export const Route = createFileRoute("/episodes")({
   head: () => ({
@@ -20,8 +21,10 @@ export const Route = createFileRoute("/episodes")({
 });
 
 function EpisodesPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [selected, setSelected] = useState<any | null>(null);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<string | null>(null);
   const { data: episodes = [], isLoading, isError } = useQuery({
     queryKey: ["episodes"],
     staleTime: 60_000,
@@ -36,32 +39,73 @@ function EpisodesPage() {
       return data;
     },
   });
+
+  const categories = Array.from(
+    new Set(episodes.map((e: any) => e.category).filter(Boolean) as string[])
+  );
+  const q = query.trim().toLowerCase();
+  const visible = episodes.filter((e: any) => {
+    const matchesCat = !category || e.category === category;
+    const matchesQ =
+      !q ||
+      `${e.title ?? ""} ${e.description ?? ""} ${e.category ?? ""}`.toLowerCase().includes(q);
+    return matchesCat && matchesQ;
+  });
+
   return (
     <div className="pt-36 md:pt-44 pb-28">
-      <section className="relative">
-        <StarField />
-        <div className="container-x relative">
+      <PageHeader
+        eyebrow={t("episodes.eyebrow")}
+        title={t("episodes.title")}
+        lede={t("episodes.subtitle")}
+        index={`${String(episodes.length).padStart(2, "0")} / Episodes`}
+        action={
           <a
             href="https://youthoria-booking-studio.lovable.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mb-8 inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full bg-slate text-sand px-7 py-3.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.16em] shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
+            className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-slate px-7 py-3.5 text-[11px] font-medium uppercase tracking-[0.16em] text-sand shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink sm:w-auto sm:text-xs"
           >
             <CalendarCheck className="size-4" /> {t("episodes.book")}
           </a>
-          <div className="label-eyebrow mb-4">{t("episodes.eyebrow")}</div>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.95] max-w-3xl text-balance text-ink">
-            {t("episodes.title")}
-          </h1>
-          <p className="mt-7 text-lg text-ink/65 max-w-[52ch] leading-relaxed text-pretty">
-            {t("episodes.subtitle")}
-          </p>
+        }
+      />
+
+      {/* SEARCH + FILTERS */}
+      <section className="container-x mt-14">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <label className="relative w-full md:max-w-sm">
+            <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-mist" />
+            <input
+              type="search"
+              value={query}
+              onChange={(ev) => setQuery(ev.target.value)}
+              placeholder={lang === "el" ? "Αναζήτηση επεισοδίων…" : "Search episodes…"}
+              aria-label={lang === "el" ? "Αναζήτηση επεισοδίων" : "Search episodes"}
+              className="w-full rounded-full border border-ink/12 bg-white/45 py-3.5 pl-11 pr-4 text-sm text-ink placeholder:text-mist focus:border-slate/40 focus:outline-none"
+            />
+          </label>
+
+          {categories.length > 0 && (
+            <div className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
+              <FilterChip active={!category} onClick={() => setCategory(null)}>
+                {lang === "el" ? "Όλα" : "All"}
+              </FilterChip>
+              {categories.map((c) => (
+                <FilterChip key={c} active={category === c} onClick={() => setCategory(c)}>
+                  {c}
+                </FilterChip>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      <section className="container-x mt-20">
+
+      <section className="container-x mt-14">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {episodes.map((e: any, i: number) => (
+          {visible.map((e: any, i: number) => (
+
             <button
                 key={e.id}
                 type="button"
@@ -95,13 +139,17 @@ function EpisodesPage() {
                   </span>
                 </div>
                 <div className="mt-5 flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.18em] text-mist">
-                  <span>{e.duration}</span>
+                  <span>EP. {String(i + 1).padStart(2, "0")}</span>
                   <span className="h-px w-6 bg-ink/20" />
-                  <span>Listen</span>
+                  <span>{e.duration}</span>
                 </div>
-                <h2 className="mt-3 font-display text-2xl md:text-[1.7rem] leading-tight text-ink text-balance transition-colors duration-300 group-hover:text-slate">
+                <h2 className="mt-3 font-display text-2xl leading-tight text-balance text-ink transition-colors duration-300 group-hover:text-slate md:text-[1.7rem]">
                   {e.title}
                 </h2>
+                {e.description ? (
+                  <p className="mt-2.5 line-clamp-2 text-sm leading-relaxed text-ink/60">{e.description}</p>
+                ) : null}
+
             </button>
           ))}
         </div>
@@ -122,8 +170,14 @@ function EpisodesPage() {
           </div>
         )}
         {!isLoading && !isError && episodes.length === 0 && (
-          <div className="text-center text-mist py-24">No episodes yet.</div>
+          <div className="py-24 text-center text-mist">No episodes yet.</div>
         )}
+        {!isLoading && !isError && episodes.length > 0 && visible.length === 0 && (
+          <div className="py-24 text-center text-mist">
+            {lang === "el" ? "Δεν βρέθηκαν επεισόδια." : "No episodes match your search."}
+          </div>
+        )}
+
       </section>
 
       {selected && <PlatformDialog episode={selected} onClose={() => setSelected(null)} />}
@@ -191,5 +245,29 @@ function PlatformDialog({ episode, onClose }: { episode: any; onClose: () => voi
         </div>
       </div>
     </div>
+  );
+}
+function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`shrink-0 rounded-full border px-4 py-2 text-[10px] font-medium uppercase tracking-[0.16em] transition-all duration-300 ${
+        active
+          ? "border-slate bg-slate text-sand"
+          : "border-ink/12 bg-white/40 text-ink/60 hover:border-slate/35 hover:text-ink"
+      }`}
+    >
+      {children}
+    </button>
   );
 }
