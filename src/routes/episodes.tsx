@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowUpRight, CalendarCheck, X, Music2, Podcast, Apple } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { ArrowUpRight, CalendarCheck, X, Music2, Podcast, Apple, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
-import { StarField } from "@/components/site/StarField";
+import { PageHeader } from "@/components/site/PageHeader";
 import { supabase } from "@/integrations/supabase/client";
 import { getAssetUrl } from "@/lib/assets";
+
 
 export const Route = createFileRoute("/episodes")({
   head: () => ({
