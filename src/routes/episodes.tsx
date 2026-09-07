@@ -139,12 +139,13 @@ function EpisodesPage() {
                   </span>
                 </div>
                 <div className="mt-5 flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.18em] text-mist">
-                  <span>{e.duration}</span>
+                  <span>EP. {String(i + 1).padStart(2, "0")}</span>
                   <span className="h-px w-6 bg-ink/20" />
-                  <span>Listen</span>
+                  <span>{e.duration}</span>
                 </div>
-                <h2 className="mt-3 font-display text-2xl md:text-[1.7rem] leading-tight text-ink text-balance transition-colors duration-300 group-hover:text-slate">
+                <h2 className="mt-3 font-display text-2xl leading-tight text-balance text-ink transition-colors duration-300 group-hover:text-slate md:text-[1.7rem]">
                   {e.title}
+
                 </h2>
             </button>
           ))}
