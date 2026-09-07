@@ -164,8 +164,14 @@ function EpisodesPage() {
           </div>
         )}
         {!isLoading && !isError && episodes.length === 0 && (
-          <div className="text-center text-mist py-24">No episodes yet.</div>
+          <div className="py-24 text-center text-mist">No episodes yet.</div>
         )}
+        {!isLoading && !isError && episodes.length > 0 && visible.length === 0 && (
+          <div className="py-24 text-center text-mist">
+            {lang === "el" ? "Δεν βρέθηκαν επεισόδια." : "No episodes match your search."}
+          </div>
+        )}
+
       </section>
 
       {selected && <PlatformDialog episode={selected} onClose={() => setSelected(null)} />}
